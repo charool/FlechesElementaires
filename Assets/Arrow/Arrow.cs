@@ -44,6 +44,11 @@ public class Arrow : MonoBehaviour
         if(other.tag == "arrow") { return; }
         didHit = true;
         transform.SetParent(other.transform);
+        IHitable target = other.GetComponent<IHitable>();
+        if (target != null && other.gameObject != gameObject)
+        {
+            target.Hit(transform.forward, ArrowType.None);
+        }
         StartCoroutine(DestroyAftertime());
     }
     private IEnumerator DestroyAftertime()

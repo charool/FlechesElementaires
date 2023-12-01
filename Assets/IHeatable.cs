@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IHeatable 
+public interface IHitable 
 {
-    void Heat(Vector3 direction,ArrowType type);
+    void Hit(Vector3 direction,ArrowType type);
 }

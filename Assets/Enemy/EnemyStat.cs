@@ -15,5 +15,5 @@ public class EnemyStat : ScriptableObject
     public float portee;
     public float detectionTime;
     public int maxHealth;
-    public float attackDurantion;
+    public float attackDuration;
 }

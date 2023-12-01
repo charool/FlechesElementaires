@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -18,6 +19,8 @@ public class Humanoid : MonoBehaviour
     protected Transform attackPoint;
 
     [SerializeField]
+    public float stunStrength;
+    [SerializeField]
     protected float speed = 1f;
     [SerializeField]
     private float rotSmooth = 0.2f;
@@ -26,6 +29,7 @@ public class Humanoid : MonoBehaviour
     private float g = 1f;
 
     private Vector3 directionMov;
+    protected Vector3 directionStun;
     private float smooth;
     protected int health = 1;
 
@@ -38,8 +42,11 @@ public class Humanoid : MonoBehaviour
     private bool _archer = false;
     private bool _isAiming = false;
     private bool _isReloading = false;
+    private bool _isStun = false;
 
     private (float, float) xzVelocity = (0f,0f);
+
+    [SerializeField] protected float stunTime = 0.5f;
 
     protected void UpdateHumanoid(float angle)
     {
@@ -69,6 +76,7 @@ public class Humanoid : MonoBehaviour
 
         if (transform.position.y < Map.instance.waterLevel) { direction /= 2f; }
         if ((IsDefending)&& IsGrounded) { direction = Vector3.zero; }
+        if (IsStun) { direction = directionStun * stunStrength; }
 
         if (direction.magnitude > 0.001f)
         {
@@ -99,10 +107,10 @@ public class Humanoid : MonoBehaviour
         Collider[] hitObject = Physics.OverlapSphere(attackPoint.position, portee);
         foreach (Collider collider in hitObject)
         {
-            IHeatable target = collider.GetComponent<IHeatable>();
+            IHitable target = collider.GetComponent<IHitable>();
             if(target != null && collider.gameObject != gameObject)
             {
-                target.Heat(transform.forward, ArrowType.None);
+                target.Hit(transform.forward, ArrowType.None);
             }
         }
     }
@@ -110,7 +118,13 @@ public class Humanoid : MonoBehaviour
     private IEnumerator AttackDelay(float detectionTime,float portee)
     {
         yield return new WaitForSeconds(detectionTime);
-        if(IsAttacking) { AttackDetection(portee); }
+        if(IsAttacking && !IsStun) { AttackDetection(portee); }
+    }
+    private IEnumerator Stun()
+    {
+        print("Stun");
+        yield return new WaitForSeconds(stunTime);
+        IsStun = false;
     }
 
     protected bool IsGrounded { get{ return controller.isGrounded || transform.position.y < Map.instance.deepWaterLevel; } }
@@ -196,6 +210,22 @@ public class Humanoid : MonoBehaviour
             {
                 _isAiming = value;
                 animator.SetBool("IsAiming", value);
+            }
+        }
+    }
+    protected bool IsStun
+    {
+        get { return _isStun; }
+        set
+        {
+            if (_isStun != value)
+            {
+                _isStun = value;
+                if(value)
+                {
+                    StartCoroutine(Stun());
+                }
+                //animator.SetBool("IsStun", value);
             }
         }
     }

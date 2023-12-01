@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class Enemy : Humanoid,IHeatable
+public class Enemy : Humanoid,IHitable
 { 
     [SerializeField]
     private EnemyStat stat;
@@ -16,6 +17,7 @@ public class Enemy : Humanoid,IHeatable
     private float lastPaternTime = 0f;
     private bool wantToAttack = false;
     private bool toFar = true;
+    private bool goBack = false;
 
     //
 
@@ -44,6 +46,15 @@ public class Enemy : Humanoid,IHeatable
             rl = 0f;
             return;
         }
+        if (IsStun)
+        {
+            fb = -1f * stunStrength;
+            rl = 0f;
+            print("s");
+            wantToAttack = false;
+            UpdateHumanoid(0f);
+            return;
+        }
 
         Vector3 toPlayer = Player.instance.transform.position - transform.position;
         toPlayer.y = 0f;
@@ -65,10 +76,10 @@ public class Enemy : Humanoid,IHeatable
             if (distance > stat.stopDistanceMax && isDisponible) { ChangePatern(distance); }
             else if (distance < (stat.stopDistanceMax + stat.stopDistanceMin) / 2f && isDisponible && toFar)
             { ChangePatern(distance); }
-            else if (distance < stat.stopDistanceMin && isDisponible)
+            else if (distance < stat.stopDistanceMin && isDisponible && !IsDefending)
             { ChangePatern(distance); }
 
-            if(wantToAttack && distance < 0.9f * stat.portee + 0.2f)
+            if(wantToAttack && distance < 0.9f * stat.portee + 0.05f)
             {
                 wantToAttack = false;
                 IsAttacking = true;
@@ -85,11 +96,14 @@ public class Enemy : Humanoid,IHeatable
         UpdateHumanoid(angle);
     }
 
-    public void Heat(Vector3 direction, ArrowType type)
+    public void Hit(Vector3 direction, ArrowType type)
     {
         print("HeatEnemy");
         if (IsDefending && Vector3.Dot(transform.forward, direction) < 0) { return; }
         IsAttacking = false;
+        wantToAttack = false;
+        IsStun = true;
+        directionStun = direction;
         health -= 1;
         if (health <= 0)
         {
@@ -155,12 +169,11 @@ public class Enemy : Humanoid,IHeatable
         {
             fb = Mathf.RoundToInt((float)Random.Range(-3, 4)/ 4.5f);
             rl = Mathf.RoundToInt((float)Random.Range(-3, 4) / 4.5f);
-            print(fb + " " + rl);
         }
     }
     private IEnumerator AttackDelay()
     {
-        yield return new WaitForSeconds(stat.attackDurantion);
+        yield return new WaitForSeconds(stat.attackDuration);
         IsAttacking = false;
     }
 

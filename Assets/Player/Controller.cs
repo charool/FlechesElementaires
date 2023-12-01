@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class Controller : Humanoid,IHeatable
+public class Controller : Humanoid,IHitable
 {
     [SerializeField]
     private Camera mainCamera;
@@ -15,6 +15,8 @@ public class Controller : Humanoid,IHeatable
     private float detectionTime;
     [SerializeField]
     private float portee;
+    [SerializeField]
+    private float attackDuration;
 
     void Start()
     {
@@ -61,7 +63,9 @@ public class Controller : Humanoid,IHeatable
         bool attack = Input.GetKey(Raccourcis.attack) && !Archer;
         if (attack && !IsAttacking)
         {
+            IsAttacking = true;
             Attack(detectionTime,portee);
+            StartCoroutine(AttackDelay());
         }
         if(Archer)
         {
@@ -90,7 +94,6 @@ public class Controller : Humanoid,IHeatable
             IsAiming = false;
             IsReloading = false;
         }
-        IsAttacking = attack;
         
         if(Input.GetKeyDown(Raccourcis.change)) 
         { 
@@ -113,7 +116,7 @@ public class Controller : Humanoid,IHeatable
         UpdateHumanoid(angle);
     }
 
-    public void Heat(Vector3 direction, ArrowType type)
+    public void Hit(Vector3 direction, ArrowType type)
     {
         print("Im heat");
         if (IsDefending && Vector3.Dot(transform.forward, direction) < 0) { return; }
@@ -131,6 +134,11 @@ public class Controller : Humanoid,IHeatable
         UIFonctions.instance.Spawn();
         IsAlive = true;
         health = 3;
+    }
+    private IEnumerator AttackDelay()
+    {
+        yield return new WaitForSeconds(attackDuration);
+        IsAttacking = false;
     }
 
     public Bow bow;
