@@ -3588,6 +3588,12 @@ PrefabInstance:
       propertyPath: reloadTime
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8152860675499588404, guid: 8c2233a063aa587458774b1b47695b68,
+        type: 3}
+      propertyPath: arrowPrefab
+      value: 
+      objectReference: {fileID: 7423175703972485593, guid: 9f23fd79456b8374db14a75711cea533,
+        type: 3}
     - target: {fileID: 8827339846362616503, guid: 8c2233a063aa587458774b1b47695b68,
         type: 3}
       propertyPath: maxRotation
