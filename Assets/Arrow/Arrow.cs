@@ -59,5 +59,5 @@ public class Arrow : MonoBehaviour
 }
 public enum ArrowType
 {
-    None,Classique
+    Classique, None
 }
