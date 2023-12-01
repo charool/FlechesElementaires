@@ -24,5 +24,4 @@ public class Bow : MonoBehaviour
         currentArrow = null;
         //Reload();
     }
-
 }

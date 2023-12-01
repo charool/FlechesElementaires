@@ -110,7 +110,7 @@ public class Humanoid : MonoBehaviour
     private IEnumerator AttackDelay(float detectionTime,float portee)
     {
         yield return new WaitForSeconds(detectionTime);
-        AttackDetection(portee);
+        if(IsAttacking) { AttackDetection(portee); }
     }
 
     protected bool IsGrounded { get{ return controller.isGrounded || transform.position.y < Map.instance.deepWaterLevel; } }

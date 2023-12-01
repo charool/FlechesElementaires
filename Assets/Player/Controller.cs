@@ -23,6 +23,7 @@ public class Controller : Humanoid,IHeatable
 
     void Update()
     {
+        if (!IsAlive){ return; }
         rl = 0f;
         fb = 0f;
         bool isGrounded = IsGrounded;
@@ -116,8 +117,9 @@ public class Controller : Humanoid,IHeatable
     {
         print("Im heat");
         if (IsDefending && Vector3.Dot(transform.forward, direction) < 0) { return; }
+        IsAttacking = false;
         health -= 1;
-        if (health <= 0)
+        if (health <= 0 && IsAlive)
         {
             IsAlive = false;
             StartCoroutine(Respawn());

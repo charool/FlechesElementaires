@@ -68,7 +68,7 @@ public class Enemy : Humanoid,IHeatable
             else if (distance < stat.stopDistanceMin && isDisponible)
             { ChangePatern(distance); }
 
-            if(wantToAttack && distance < 0.9f * stat.portee)
+            if(wantToAttack && distance < 0.9f * stat.portee + 0.2f)
             {
                 wantToAttack = false;
                 IsAttacking = true;
@@ -89,6 +89,7 @@ public class Enemy : Humanoid,IHeatable
     {
         print("HeatEnemy");
         if (IsDefending && Vector3.Dot(transform.forward, direction) < 0) { return; }
+        IsAttacking = false;
         health -= 1;
         if (health <= 0)
         {
@@ -133,7 +134,21 @@ public class Enemy : Humanoid,IHeatable
             else
             {
                 rl = 0f;
-                fb = -1f;
+                fb = -1f; 
+                if (Random.value < stat.probaAttack)
+                {
+                    wantToAttack = true;
+                    lastPaternTime = float.MaxValue;
+                    IsDefending = false;
+                    fb = 1f;
+                    rl = 0f;
+                }
+                else if (Random.value < stat.probaDefence)
+                {
+                    IsDefending = true;
+                    fb = 0f;
+                }
+                toFar = false;
             }
         }
         else

@@ -22,4 +22,4 @@ MonoBehaviour:
   portee: 0.2
   detectionTime: 0.2
   maxHealth: 2
-  attackDurantion: 1
+  attackDurantion: 0.65
