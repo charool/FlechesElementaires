@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class Chunk : MonoBehaviour
 {
@@ -44,7 +45,7 @@ public class Chunk : MonoBehaviour
 
     public Cell GetCell(int z, int x)
     {
-        return cells[z, x];
+        return cells[x, z];
     }
 
     private Color red = new Color(1f, 0f, 0f, 0f);
@@ -62,6 +63,15 @@ public class Chunk : MonoBehaviour
             {
                 cells[j, i] = new Cell();
                 Cell cell = cells[j,i];
+                cell.biomeIndex = GetBiomeIndex(i, j);
+            }
+        }
+
+        for (int i = 0; i < nbCaseX; i++)
+        {
+            for (int j = 0; j < nbCaseX; j++)
+            {
+                Cell cell = cells[j, i];
                 cell.textureIndex = GetTextureIndex(i, j);
             }
         }
@@ -562,28 +572,111 @@ public class Chunk : MonoBehaviour
 
     private int GetTextureIndex(int z, int x)
     {
-        // return <= 5
         float abs = (float)(x + nbCaseX * indexXZ.x) * scale + Map.seed;
         float ord = (float)(z + nbCaseX * indexXZ.y) * scale;
-        float val = 4f * Mathf.PerlinNoise(abs, ord) +
-            2f * Mathf.PerlinNoise(abs * 2, ord * 2) +
-            1f * Mathf.PerlinNoise(abs * 3, ord * 3) +
-            0.5f * Mathf.PerlinNoise(abs * 4, ord * 4) +
-            0.25f * Mathf.PerlinNoise(abs * 5, ord * 5);
-        return Mathf.RoundToInt(val);
+        int biome = GetBiomeIndex(z,x);
+        /*
+        if (biome == (int)BiomeType.Water)
+        {
+            float val = 4f * Mathf.PerlinNoise(abs, ord) +
+                2f * Mathf.PerlinNoise(abs * 2, ord * 2) +
+                1f * Mathf.PerlinNoise(abs * 3, ord * 3) +
+                0.5f * Mathf.PerlinNoise(abs * 4, ord * 4) +
+                0.25f * Mathf.PerlinNoise(abs * 5, ord * 5);
+            return Mathf.RoundToInt(val);
+        }*/
+        return biome;
+        return 0;
     }
 
     private int GetHeigth(int z ,int x)
     {
-        // return <= 5
-        float abs = (float)(x + nbCaseX * indexXZ.x)  * scale + Map.seed;
-        float ord = (float)(z + nbCaseX * indexXZ.y)  * scale;
-        float val = 4f * Mathf.PerlinNoise(abs, ord) +
-            2f * Mathf.PerlinNoise(abs*2, ord*2) +
-            1f * Mathf.PerlinNoise(abs*3, ord*3) +
-            0.5f * Mathf.PerlinNoise(abs*4, ord*4) +
-            0.25f * Mathf.PerlinNoise(abs*5, ord*5);
-        return Mathf.RoundToInt(val);
+        int biome = GetBiomeIndex(z, x);
+
+        x += nbCaseX * indexXZ.x;
+        z += nbCaseX * indexXZ.y;
+        float abs = (float)(x)  * scale + Map.seed;
+        float ord = (float)(z)  * scale;
+
+        if(biome == (int)BiomeType.Water)
+        {
+            float val = 1f * Mathf.PerlinNoise(abs, ord) +
+                0.5f * Mathf.PerlinNoise(abs * 2, ord * 2);
+            return Mathf.RoundToInt(val);
+        }
+        if (biome == (int)BiomeType.GrassLand1)
+        {
+            float val = 1f + 2f * Mathf.PerlinNoise(abs, ord) +
+                1f * Mathf.PerlinNoise(abs * 2, ord * 2) +
+                0.5f * Mathf.PerlinNoise(abs * 3, ord * 3);
+            return Mathf.RoundToInt(val);
+        }
+        if (biome == (int)BiomeType.GrassLand2)
+        {
+            float val = 4f * Mathf.PerlinNoise(abs, ord) +
+                2f * Mathf.PerlinNoise(abs * 2, ord * 2) +
+                1f * Mathf.PerlinNoise(abs * 3, ord * 3) +
+                0.5f * Mathf.PerlinNoise(abs * 4, ord * 4) +
+                0.25f * Mathf.PerlinNoise(abs * 5, ord * 5);
+            return Mathf.RoundToInt(val);
+        }
+        if (biome == (int)BiomeType.Mountain)
+        {
+            float val = 1f + 2.5f * Mathf.PerlinNoise(abs, ord) +
+                2f * Mathf.PerlinNoise(abs * 2, ord * 2) +
+                1f * Mathf.PerlinNoise(abs * 3, ord * 3);
+            return Mathf.RoundToInt(val);
+        }
+        if (biome == (int)BiomeType.Canyon)
+        {
+            float height = 0;
+            if(Mathf.PerlinNoise(abs * 3, ord * 3) > 0.5f) { height = 1f; }
+            float val = 1f + 2f * height;
+            return Mathf.RoundToInt(val);
+        }
+        return 1;
+    }
+
+    private int GetBiomeIndex(int z,int x)
+    {
+        x += nbCaseX * indexXZ.x;
+        z += nbCaseX * indexXZ.y;
+        int biomeSize = Map.instance.biomeSize;
+        Texture2D noiseRGB = Map.instance.rgbNoise;
+        Vector2 cell = new Vector2(x, z);
+        Vector2Int biome0 = new Vector2Int((x / biomeSize) * biomeSize, (z / biomeSize) * biomeSize);
+        Vector2Int biome1 = new Vector2Int((x / biomeSize + 1) * biomeSize, (z / biomeSize) * biomeSize);
+        Vector2Int biome2 = new Vector2Int((x / biomeSize) * biomeSize, (z / biomeSize + 1) * biomeSize);
+        Vector2Int biome3 = new Vector2Int((x / biomeSize + 1) * biomeSize, (z / biomeSize + 1) * biomeSize);/*
+        Color c = (noiseRGB.GetPixel(biome0.x, biome0.y) - new Color(0.75f, 0.75f, 0.75f, 1f)) * biomeSize * 2f; print(c);
+        Vector2 noise0 = new Vector2(c.r, c.g); c = noiseRGB.GetPixel(biome1.x, biome1.y) * biomeSize;
+        Vector2 noise1 = new Vector2(c.r, c.g); c = noiseRGB.GetPixel(biome2.x, biome2.y) * biomeSize;
+        Vector2 noise2 = new Vector2(c.r, c.g); c = noiseRGB.GetPixel(biome3.x, biome3.y) * biomeSize;
+        Vector2 noise3 = new Vector2(c.r, c.g);*//*
+        Vector2 noise0 = new Vector2(UnityEngine.Random.value, UnityEngine.Random.value) * biomeSize;
+        Vector2 noise1 = new Vector2(UnityEngine.Random.value, UnityEngine.Random.value) * biomeSize;
+        Vector2 noise2 = new Vector2(UnityEngine.Random.value, UnityEngine.Random.value) * biomeSize;
+        Vector2 noise3 = new Vector2(UnityEngine.Random.value, UnityEngine.Random.value) * biomeSize;*/
+        Vector2 noise0 = new Vector2(Mathf.PerlinNoise((float)(biome0.x) * scale, (float)(biome0.y) * scale + Map.seed),
+            Mathf.PerlinNoise((float)(biome0.x) * scale, (float)(biome0.y) * scale + Map.seed)) * biomeSize;
+        Vector2 noise1 = new Vector2(Mathf.PerlinNoise((float)(biome1.x) * scale, (float)(biome1.y) * scale + Map.seed),
+            Mathf.PerlinNoise((float)(biome1.x) * scale, (float)(biome1.y) * scale + Map.seed)) * biomeSize;
+        Vector2 noise2 = new Vector2(Mathf.PerlinNoise((float)(biome2.x) * scale, (float)(biome2.y) * scale + Map.seed),
+            Mathf.PerlinNoise((float)(biome2.x) * scale, (float)(biome2.y) * scale + Map.seed)) * biomeSize;
+        Vector2 noise3 = new Vector2(Mathf.PerlinNoise((float)(biome3.x) * scale, (float)(biome3.y) * scale + Map.seed),
+            Mathf.PerlinNoise((float)(biome3.x) * scale, (float)(biome3.y) * scale + Map.seed)) * biomeSize;
+        if ((cell - biome1 - noise1).magnitude < (cell - biome0 - noise0).magnitude) { biome0 = biome1; noise0 = noise1; }
+        if ((cell - biome2 - noise2).magnitude < (cell - biome0 - noise0).magnitude) { biome0 = biome2; noise0 = noise2; }
+        if ((cell - biome3 - noise3).magnitude < (cell - biome0 - noise0).magnitude) { biome0 = biome3; noise0 = noise3; }
+
+        float[] biomeProba = Map.instance.biomeProba1;
+        float biome = Mathf.PerlinNoise((float)(biome0.x) * scale + Map.seed, (float)(biome0.y) * scale);
+        int finalBiome = 0;
+        for (int i = 0; i < biomeProba.Length; i++)
+        {
+            if (biome < biomeProba[i]) { finalBiome = i; break; }
+        }
+        return finalBiome;
     }
 
     float SetMidHeight(int i0, int i1, int i2, int i3)

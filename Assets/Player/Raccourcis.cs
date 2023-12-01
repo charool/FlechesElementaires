@@ -12,5 +12,6 @@ public static class Raccourcis
     public static KeyCode attack = KeyCode.Mouse0;
     public static KeyCode defend = KeyCode.Mouse1;
     public static KeyCode sprint = KeyCode.A;
+    public static KeyCode change = KeyCode.E;
 
 }

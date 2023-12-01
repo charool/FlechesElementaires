@@ -9,6 +9,8 @@ public class Controller : Humanoid
     private Camera mainCamera;
     [SerializeField]
     private float jumpSpeed = 1f;
+    [SerializeField]
+    private Transform cameraPoint;
 
     void Update()
     {
@@ -17,7 +19,7 @@ public class Controller : Humanoid
         bool isGrounded = IsGrounded;
         //print(isGrounded);
 
-        Vector3 toMouse = Input.mousePosition - mainCamera.WorldToScreenPoint(this.transform.position);
+        Vector3 toMouse = Input.mousePosition - mainCamera.WorldToScreenPoint(cameraPoint.position);
         toMouse.z = 0f;
         toMouse.Normalize();
 
@@ -46,11 +48,52 @@ public class Controller : Humanoid
             }
         }
         IsDefending = Input.GetKey(Raccourcis.defend);
-        IsAttacking = Input.GetKey(Raccourcis.attack);
+        IsAttacking = Input.GetKey(Raccourcis.attack) && !Archer;
+        if(Archer)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                isReloading = true;
+                isFireing = true;
+            }
+            if (isFireing && reloadTime < totalReloadTime)
+            {
+                reloadTime += Time.deltaTime;
+            }
+            else{ isReloading = false; }
+            if (isFireing && Input.GetMouseButtonUp(0))
+            {
+                if (!isReloading) { bow.Fire(); }
+                reloadTime = 0;
+                isFireing = false;
+            }
+
+            IsAiming = isFireing && !isReloading;
+            IsReloading = isFireing && isReloading;
+        }
+        else
+        {
+            IsAiming = false;
+            IsReloading = false;
+        }
+        
+        if(Input.GetKeyDown(Raccourcis.change)) { Archer = !Archer; }
         //if (Input.GetKey(Raccourcis.attack)) { IsAttacking = true; }
 
         UpdateHumanoid(angle);
     }
+
+    public Bow bow;
+
+    [SerializeField] private float totalReloadTime;
+    private float reloadTime = 0f;
+
+    [SerializeField] private float rotationSpeed;
+    [SerializeField] private float maxRotation;
+    [SerializeField] private float minRotation;
+
+    private bool isReloading = false;
+    private bool isFireing = false;
 
     private void attack()
     {

@@ -9,6 +9,10 @@ public class Humanoid : MonoBehaviour
     protected CharacterController controller;
     [SerializeField]
     private Animator animator;
+    [SerializeField]
+    private Transform rightHand;
+    [SerializeField]
+    private Transform leftHand;
 
     [SerializeField]
     protected float speed = 1f;
@@ -27,6 +31,9 @@ public class Humanoid : MonoBehaviour
     private bool _isJumping = false;
     private bool _isDefending = false;
     private bool _isAlive = true;
+    private bool _archer = false;
+    private bool _isAiming = false;
+    private bool _isReloading = false;
 
     private (float, float) xzVelocity = (0f,0f);
     protected void UpdateHumanoid(float angle)
@@ -124,6 +131,42 @@ public class Humanoid : MonoBehaviour
             {
                 _isAlive = value;
                 animator.SetBool("isAlive", value);
+            }
+        }
+    }
+    protected bool Archer
+    {
+        get { return _archer; }
+        set
+        {
+            if (_archer != value)
+            {
+                _archer = value;
+                animator.SetBool("Archer", value);
+            }
+        }
+    }
+    protected bool IsReloading
+    {
+        get { return _isReloading; }
+        set
+        {
+            if (_isReloading != value)
+            {
+                _isReloading = value;
+                animator.SetBool("IsReloading", value);
+            }
+        }
+    }
+    protected bool IsAiming
+    {
+        get { return _isAiming; }
+        set
+        {
+            if (_isAiming != value)
+            {
+                _isAiming = value;
+                animator.SetBool("IsAiming", value);
             }
         }
     }

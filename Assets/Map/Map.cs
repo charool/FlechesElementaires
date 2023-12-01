@@ -8,9 +8,9 @@ public class Map : MonoBehaviour
     [SerializeField]
     public static int maxSize = 100;
     [SerializeField]
-    public float waterLevel = 1f;
+    public float waterLevel = 0f;
     [SerializeField]
-    public float deepWaterLevel = 1.1f;
+    public float deepWaterLevel = -0.2f;
     [SerializeField]
     GameObject chunkPrefab;
 
@@ -22,6 +22,10 @@ public class Map : MonoBehaviour
 
     [SerializeField]
     private int chunkRendererDistance;
+
+    public float[] biomeProba1;
+    public Texture2D rgbNoise;
+    public int biomeSize;
 
     private void Start()
     {

@@ -28,7 +28,9 @@ public class Grass : MonoBehaviour
         {
             for (int j = 0; j < nbCaseX; j++)
             {
-                if (GetComponentInParent<Chunk>().GetCell(i, j).textureIndex != (int)CellType.Grass)
+                if ((GetComponentInParent<Chunk>().GetCell(i, j).textureIndex != (int)CellType.Grass1
+                    && GetComponentInParent<Chunk>().GetCell(i, j).textureIndex != (int)CellType.Grass2)
+                    || Random.Range(0f,1f) < 0.5f)
                 {
                     continue;
                 }
@@ -36,7 +38,8 @@ public class Grass : MonoBehaviour
                 int indexNew = 3 * 4 * nbCaseX * nbCaseX + 12 * (i * nbCaseX + j);
                 Vector3 mid = (vertices[index + 8] + vertices[index + 9] + 
                     vertices[index + 10] + vertices[index + 11]) / 4f;
-                AddGrass(mid);
+
+                if (mid.y > Map.instance.waterLevel) { AddGrass(mid); }
 
                 for (int face = 0; face < 4; face++)
                 {
@@ -58,7 +61,7 @@ public class Grass : MonoBehaviour
 
                             Vector3 pos = (kk / 5f+ noise1) * vec1 + 
                                 (k / 5f + noise2) * vec2 + dep;
-                            if (pos.y < 0.999f) { break; }
+                            if (pos.y < Map.instance.waterLevel) { break; }
                             pos = (midface - pos) / 15f + pos;
                             AddGrass(pos);
                         }
