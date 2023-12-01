@@ -13,4 +13,7 @@ public class EnemyStat : ScriptableObject
     public float speed;
     public float triggerDistance;
     public float portee;
+    public float detectionTime;
+    public int maxHealth;
+    public float attackDurantion;
 }

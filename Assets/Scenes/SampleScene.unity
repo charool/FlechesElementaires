@@ -515,7 +515,7 @@ PrefabInstance:
     - target: {fileID: 4744459920453897031, guid: ae5a988258fefcb4b85e4137a1a34ff9,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.92387956
+      value: 0.8660254
       objectReference: {fileID: 0}
     - target: {fileID: 4744459920453897031, guid: ae5a988258fefcb4b85e4137a1a34ff9,
         type: 3}
@@ -530,7 +530,7 @@ PrefabInstance:
     - target: {fileID: 4744459920453897031, guid: ae5a988258fefcb4b85e4137a1a34ff9,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.38268343
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4744459920453897031, guid: ae5a988258fefcb4b85e4137a1a34ff9,
         type: 3}
@@ -545,7 +545,7 @@ PrefabInstance:
     - target: {fileID: 4744459920453897031, guid: ae5a988258fefcb4b85e4137a1a34ff9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -45
+      value: -60
       objectReference: {fileID: 0}
     - target: {fileID: 5376283679411393021, guid: ae5a988258fefcb4b85e4137a1a34ff9,
         type: 3}
@@ -981,12 +981,15 @@ MonoBehaviour:
   animator: {fileID: 1458154201}
   rightHand: {fileID: 925370481}
   leftHand: {fileID: 18282231}
+  attackPoint: {fileID: 710951376}
   speed: 0.75
   rotSmooth: 0.05
   g: 2
   mainCamera: {fileID: 330585545}
   jumpSpeed: 4
   cameraPoint: {fileID: 1714536858}
+  detectionTime: 0.2
+  portee: 0.25
   bow: {fileID: 2036219721}
   totalReloadTime: 0.7
   rotationSpeed: 3
@@ -1025,6 +1028,7 @@ Transform:
   - {fileID: 427225682}
   - {fileID: 1458154202}
   - {fileID: 1714536858}
+  - {fileID: 710951376}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1185,6 +1189,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 349854268}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &469448120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 469448121}
+  m_Layer: 6
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &469448121
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469448120}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 937543513}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &511413297
 GameObject:
@@ -1442,6 +1477,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 690807962}
   m_CullTransparentMesh: 1
+--- !u!1 &710951375
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 710951376}
+  m_Layer: 6
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &710951376
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710951375}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 349854268}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1850,11 +1916,13 @@ MonoBehaviour:
   animator: {fileID: 1493529980}
   rightHand: {fileID: 0}
   leftHand: {fileID: 0}
+  attackPoint: {fileID: 469448121}
   speed: 1
   rotSmooth: 0.2
   g: 2
   stat: {fileID: 11400000, guid: 782fcff4f7dc5e34fb90fafa6e13ed15, type: 2}
   isTrigger: 0
+  destroyTime: 10
 --- !u!143 &937543510
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1886,6 +1954,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1493529978}
+  - {fileID: 469448121}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3498,6 +3567,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7739511912181154950, guid: 8c2233a063aa587458774b1b47695b68,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8152860675499588404, guid: 8c2233a063aa587458774b1b47695b68,
         type: 3}

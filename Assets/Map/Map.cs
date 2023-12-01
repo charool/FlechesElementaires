@@ -116,6 +116,7 @@ public class Map : MonoBehaviour
 
     public void Destroy()
     {
+        if (chunks == null) { return; }
         foreach (GameObject chunk in chunks) 
         { 
             Destroy(chunk);

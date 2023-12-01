@@ -52,3 +52,7 @@ public class Arrow : MonoBehaviour
         Destroy(gameObject);
     }
 }
+public enum ArrowType
+{
+    None,Classique
+}

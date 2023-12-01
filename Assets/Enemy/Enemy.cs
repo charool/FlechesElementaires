@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : Humanoid
+public class Enemy : Humanoid,IHeatable
 { 
     [SerializeField]
     private EnemyStat stat;
 
     public bool isTrigger = false;
+    [SerializeField]
+    public float destroyTime;
 
     //patern
 
@@ -20,6 +22,7 @@ public class Enemy : Humanoid
     private void Start()
     {
         speed = stat.speed;
+        health = stat.maxHealth;
     }
 
     public void Active()
@@ -35,6 +38,13 @@ public class Enemy : Humanoid
     }
     void Update()
     {
+        if (!IsAlive)
+        {
+            fb = 0f;
+            rl = 0f;
+            return;
+        }
+
         Vector3 toPlayer = Player.instance.transform.position - transform.position;
         toPlayer.y = 0f;
         float distance = toPlayer.magnitude;
@@ -57,6 +67,15 @@ public class Enemy : Humanoid
             { ChangePatern(distance); }
             else if (distance < stat.stopDistanceMin && isDisponible)
             { ChangePatern(distance); }
+
+            if(wantToAttack && distance < 0.9f * stat.portee)
+            {
+                wantToAttack = false;
+                IsAttacking = true;
+                fb = 0f;
+                Attack(stat.detectionTime,stat.portee);
+                StartCoroutine(AttackDelay());
+            }
         }
         else
         {
@@ -64,6 +83,18 @@ public class Enemy : Humanoid
         }
 
         UpdateHumanoid(angle);
+    }
+
+    public void Heat(Vector3 direction, ArrowType type)
+    {
+        print("HeatEnemy");
+        if (IsDefending && Vector3.Dot(transform.forward, direction) < 0) { return; }
+        health -= 1;
+        if (health <= 0)
+        {
+            IsAlive = false;
+            StartCoroutine(DestroyAftertime());
+        }
     }
 
     private void ChangePatern(float distance)
@@ -111,6 +142,17 @@ public class Enemy : Humanoid
             rl = Mathf.RoundToInt((float)Random.Range(-3, 4) / 4.5f);
             print(fb + " " + rl);
         }
+    }
+    private IEnumerator AttackDelay()
+    {
+        yield return new WaitForSeconds(stat.attackDurantion);
+        IsAttacking = false;
+    }
+
+    private IEnumerator DestroyAftertime()
+    {
+        yield return new WaitForSeconds(destroyTime);
+        Destroy(gameObject);
     }
 
     private bool isDisponible{ get{ return !wantToAttack && !IsAttacking; } }

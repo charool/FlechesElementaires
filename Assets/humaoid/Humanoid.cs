@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Humanoid : MonoBehaviour
@@ -13,6 +14,8 @@ public class Humanoid : MonoBehaviour
     protected Transform rightHand;
     [SerializeField]
     protected Transform leftHand;
+    [SerializeField]
+    protected Transform attackPoint;
 
     [SerializeField]
     protected float speed = 1f;
@@ -24,6 +27,7 @@ public class Humanoid : MonoBehaviour
 
     private Vector3 directionMov;
     private float smooth;
+    protected int health = 1;
 
     protected float rl = 0f;
     protected float fb = 0f;
@@ -36,6 +40,7 @@ public class Humanoid : MonoBehaviour
     private bool _isReloading = false;
 
     private (float, float) xzVelocity = (0f,0f);
+
     protected void UpdateHumanoid(float angle)
     {
         bool isGrounded = IsGrounded;
@@ -63,7 +68,7 @@ public class Humanoid : MonoBehaviour
         else { direction = directionMov; }
 
         if (transform.position.y < Map.instance.waterLevel) { direction /= 2f; }
-        if (IsDefending) { direction /= 2f; }
+        if ((IsDefending)&& IsGrounded) { direction = Vector3.zero; }
 
         if (direction.magnitude > 0.001f)
         {
@@ -82,6 +87,30 @@ public class Humanoid : MonoBehaviour
         }
 
         directionMov = direction;
+    }
+
+    public void Attack(float detectionTime, float portee)
+    {
+        StartCoroutine(AttackDelay(detectionTime, portee));
+    }
+
+    protected void AttackDetection(float portee)
+    {
+        Collider[] hitObject = Physics.OverlapSphere(attackPoint.position, portee);
+        foreach (Collider collider in hitObject)
+        {
+            IHeatable target = collider.GetComponent<IHeatable>();
+            if(target != null && collider.gameObject != gameObject)
+            {
+                target.Heat(transform.forward, ArrowType.None);
+            }
+        }
+    }
+
+    private IEnumerator AttackDelay(float detectionTime,float portee)
+    {
+        yield return new WaitForSeconds(detectionTime);
+        AttackDetection(portee);
     }
 
     protected bool IsGrounded { get{ return controller.isGrounded || transform.position.y < Map.instance.deepWaterLevel; } }

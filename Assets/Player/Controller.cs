@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class Controller : Humanoid
+public class Controller : Humanoid,IHeatable
 {
     [SerializeField]
     private Camera mainCamera;
@@ -11,6 +11,15 @@ public class Controller : Humanoid
     private float jumpSpeed = 1f;
     [SerializeField]
     private Transform cameraPoint;
+    [SerializeField]
+    private float detectionTime;
+    [SerializeField]
+    private float portee;
+
+    void Start()
+    {
+        health = 3;
+    }
 
     void Update()
     {
@@ -48,7 +57,11 @@ public class Controller : Humanoid
             }
         }
         IsDefending = Input.GetKey(Raccourcis.defend);
-        IsAttacking = Input.GetKey(Raccourcis.attack) && !Archer;
+        bool attack = Input.GetKey(Raccourcis.attack) && !Archer;
+        if (attack && !IsAttacking)
+        {
+            Attack(detectionTime,portee);
+        }
         if(Archer)
         {
             if (Input.GetMouseButtonDown(0))
@@ -76,6 +89,7 @@ public class Controller : Humanoid
             IsAiming = false;
             IsReloading = false;
         }
+        IsAttacking = attack;
         
         if(Input.GetKeyDown(Raccourcis.change)) 
         { 
@@ -98,6 +112,25 @@ public class Controller : Humanoid
         UpdateHumanoid(angle);
     }
 
+    public void Heat(Vector3 direction, ArrowType type)
+    {
+        print("Im heat");
+        if (IsDefending && Vector3.Dot(transform.forward, direction) < 0) { return; }
+        health -= 1;
+        if (health <= 0)
+        {
+            IsAlive = false;
+            StartCoroutine(Respawn());
+        }
+    }
+    private IEnumerator Respawn()
+    {
+        yield return new WaitForSeconds(8f);
+        UIFonctions.instance.Spawn();
+        IsAlive = true;
+        health = 3;
+    }
+
     public Bow bow;
 
     [SerializeField] private float totalReloadTime;
@@ -109,9 +142,4 @@ public class Controller : Humanoid
 
     private bool isReloading = false;
     private bool isFireing = false;
-
-    private void attack()
-    {
-
-    }
 }

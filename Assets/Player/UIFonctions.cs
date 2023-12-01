@@ -14,10 +14,13 @@ public class UIFonctions : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI textFPS;
 
+    public static UIFonctions instance;
+
     private const int defaultFPS = 90;
     private void Awake()
     {
         FPStarget(defaultFPS);
+        instance = this;
     }
     public void TopRightButton()
     {
