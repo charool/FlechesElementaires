@@ -81,7 +81,7 @@ public class Controller : Humanoid,IHitable
             else{ isReloading = false; }
             if (isFireing && Input.GetMouseButtonUp(0))
             {
-                if (!isReloading) { bow.Fire(); }
+                bow.Fire(GetComponent<PlayerSelection>());
                 reloadTime = 0;
                 isFireing = false;
             }
