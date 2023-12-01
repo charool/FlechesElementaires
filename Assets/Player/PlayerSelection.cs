@@ -10,7 +10,7 @@ public class PlayerSelection : MonoBehaviour
     [SerializeField]
     private List<byte> arrowInventory;
 
-    private int _currentArrowType;
+    private int _currentArrowType = 0;
 
     public ArrowType currentArrowType
     {
@@ -22,7 +22,7 @@ public class PlayerSelection : MonoBehaviour
 
     public static bool IsValidArrowType(int __arrowType)
     {
-        return Enum.IsDefined(typeof(ArrowType), __arrowType);
+        return Enum.IsDefined(typeof(ArrowType), __arrowType + 1) ;
     }
 
     public bool NextArrowType()
@@ -52,6 +52,10 @@ public class PlayerSelection : MonoBehaviour
         return arrowInventory[(int) __a];
     }
 
+    public void AddNumberOfArrow(ArrowType __a, byte __b)
+    {
+        arrowInventory[(int)__a] += __b;
+    }
     public void SetNumberOfArrow(ArrowType __a, byte __b) 
     {
         arrowInventory[(int) __a] = __b;
@@ -60,13 +64,13 @@ public class PlayerSelection : MonoBehaviour
     public GameObject FireCurrentArrowType()
     {
         if (HasCurrentArrowType) {
-            print($"Firing '{currentArrowType.ToString()}' arrow!");
+            print($"Firing '{(currentArrowType + 1).ToString()}' arrow!");
 
             --arrowInventory[_currentArrowType];
 
             return arrowPrefabs[_currentArrowType];
         } else {
-            print($"No more '{currentArrowType.ToString()}' arrow in the inventory!");
+            print($"No more '{(currentArrowType+1).ToString()}' arrow in the inventory!");
         }
 
         return null;

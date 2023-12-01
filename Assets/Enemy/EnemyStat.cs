@@ -16,4 +16,7 @@ public class EnemyStat : ScriptableObject
     public float detectionTime;
     public int maxHealth;
     public float attackDuration;
+    public bool asElem;
+    public Element element;
+    public ArrowType weakness;
 }

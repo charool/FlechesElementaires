@@ -15,7 +15,7 @@ MonoBehaviour:
   changePaternTime: 2
   stopDistanceMax: 2
   stopDistanceMin: 1
-  probaAttack: 0.25
+  probaAttack: 0.5
   probaDefence: 0.5
   speed: 0.5
   triggerDistance: 4
@@ -23,3 +23,6 @@ MonoBehaviour:
   detectionTime: 0.2
   maxHealth: 10
   attackDuration: 0.65
+  asElem: 0
+  element: 0
+  weakness: 0

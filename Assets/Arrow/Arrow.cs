@@ -59,5 +59,9 @@ public class Arrow : MonoBehaviour
 }
 public enum ArrowType
 {
-    Classique, None
+    None,Clasique,Dirt,Wind,Elec,Ice,Fire
+}
+public enum Element
+{
+    Dirt, Wind, Elec, Ice, Fire
 }

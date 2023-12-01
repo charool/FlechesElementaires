@@ -17,6 +17,8 @@ public class Controller : Humanoid,IHitable
     private float portee;
     [SerializeField]
     private float attackDuration;
+    [SerializeField]
+    private PlayerSelection selectionArrow;
 
     void Start()
     {
@@ -79,9 +81,12 @@ public class Controller : Humanoid,IHitable
                 reloadTime += Time.deltaTime;
             }
             else{ isReloading = false; }
-            if (isFireing && Input.GetMouseButtonUp(0))
+            if (isFireing  && Input.GetMouseButtonUp(0))
             {
-                bow.Fire(GetComponent<PlayerSelection>());
+                if (reloadTime >= totalReloadTime)
+                {
+                    bow.Fire(GetComponent<PlayerSelection>());
+                }
                 reloadTime = 0;
                 isFireing = false;
             }
@@ -112,6 +117,17 @@ public class Controller : Humanoid,IHitable
             }
         }
         //if (Input.GetKey(Raccourcis.attack)) { IsAttacking = true; }
+        int changeArrowType= (int)Input.mouseScrollDelta.y;
+        if (changeArrowType == 1)
+        {
+            print("+");
+            selectionArrow.NextArrowType();
+        }
+        else if (changeArrowType == -1)
+        {
+            print("-");
+            selectionArrow.PreviousArrowType();
+        }
 
         UpdateHumanoid(angle);
     }
@@ -130,7 +146,7 @@ public class Controller : Humanoid,IHitable
     }
     private IEnumerator Respawn()
     {
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(5f);
         UIFonctions.instance.Spawn();
         IsAlive = true;
         health = 3;

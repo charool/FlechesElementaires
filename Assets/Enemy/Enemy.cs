@@ -79,7 +79,7 @@ public class Enemy : Humanoid,IHitable
             else if (distance < stat.stopDistanceMin && isDisponible && !IsDefending)
             { ChangePatern(distance); }
 
-            if(wantToAttack && distance < 0.9f * stat.portee + 0.05f)
+            if(wantToAttack && distance < 0.9f * stat.portee + 0.25f)
             {
                 wantToAttack = false;
                 IsAttacking = true;
@@ -100,6 +100,7 @@ public class Enemy : Humanoid,IHitable
     {
         print("HeatEnemy");
         if (IsDefending && Vector3.Dot(transform.forward, direction) < 0) { return; }
+        if(stat.asElem && type != stat.weakness) { return; }
         IsAttacking = false;
         wantToAttack = false;
         IsStun = true;
@@ -184,4 +185,5 @@ public class Enemy : Humanoid,IHitable
     }
 
     private bool isDisponible{ get{ return !wantToAttack && !IsAttacking; } }
+
 }
