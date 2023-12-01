@@ -9,7 +9,7 @@ public class Health : MonoBehaviour
 
     public Sprite emptyHeart;
     public Sprite fullHeart;
-    
+
     public Canvas canvas;
     public float spacing;
 
@@ -17,9 +17,9 @@ public class Health : MonoBehaviour
     private byte _health;
 
     public byte HealthValue
-    { 
+    {
         get => _health;
-        
+
         set
         {
             _health = value;
@@ -55,17 +55,20 @@ public class Health : MonoBehaviour
     protected void Start()
     {
         for (int i = 1; i != maxHealth; ++i) {
-            images.Add(Instantiate(images[0], canvas.transform));
+            images.Add(Instantiate(images[^1], images[^1].transform));
+
+            images[^1].name = $"{images[0].name} ({i})";
 
             images[^1].transform.Translate(
-                (images[^2].transform.position.x - images[^1].transform.position.x) 
-                    + images[0].rectTransform.rect.width 
-                    + spacing,
-
-                0, 
+                images[0].rectTransform.rect.width + spacing,
+                0,
                 0
             );
+
+            images[^1].transform.SetParent(canvas.transform, false);
         }
+
+        images[0].name = $"{images[0].name} (0)";
     }
 
     protected void Update()
