@@ -77,7 +77,22 @@ public class Controller : Humanoid
             IsReloading = false;
         }
         
-        if(Input.GetKeyDown(Raccourcis.change)) { Archer = !Archer; }
+        if(Input.GetKeyDown(Raccourcis.change)) 
+        { 
+            Archer = !Archer;
+            if (Archer)
+            {
+                leftHand.GetComponent<LeftHand>().Bow.SetActive(true);
+                leftHand.GetComponent<LeftHand>().Shield.SetActive(false);
+                rightHand.GetComponent<RightHand>().sword.SetActive(false);
+            }
+            else
+            {
+                leftHand.GetComponent<LeftHand>().Bow.SetActive(false);
+                leftHand.GetComponent<LeftHand>().Shield.SetActive(true);
+                rightHand.GetComponent<RightHand>().sword.SetActive(true);
+            }
+        }
         //if (Input.GetKey(Raccourcis.attack)) { IsAttacking = true; }
 
         UpdateHumanoid(angle);

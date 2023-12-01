@@ -10,9 +10,9 @@ public class Humanoid : MonoBehaviour
     [SerializeField]
     private Animator animator;
     [SerializeField]
-    private Transform rightHand;
+    protected Transform rightHand;
     [SerializeField]
-    private Transform leftHand;
+    protected Transform leftHand;
 
     [SerializeField]
     protected float speed = 1f;

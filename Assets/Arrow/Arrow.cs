@@ -12,6 +12,7 @@ public class Arrow : MonoBehaviour
     float speed;
     [SerializeField]
     float maxTime;
+    [SerializeField]
     float time=0f;
 
     private void Update()
