@@ -13,9 +13,11 @@ public class Chunk : MonoBehaviour
     [SerializeField]
     private GameObject terrain;
     [SerializeField]
-    private GameObject grass;
+    private Grass grass;
     [SerializeField]
-    private GameObject water;
+    private Trees trees;
+    [SerializeField]
+    private Water water;
     [SerializeField]
     private float step = 0.5f;
 
@@ -56,7 +58,7 @@ public class Chunk : MonoBehaviour
     private void Generate()
     {
         cells = new Cell[nbCaseX,nbCaseX];
-
+        
         for (int i = 0; i < nbCaseX; i++)
         {
             for (int j = 0; j < nbCaseX; j++)
@@ -505,7 +507,10 @@ public class Chunk : MonoBehaviour
 
         mesh.Border();
 
-        grass.GetComponent<Grass>().Generate();
+
+        water.Genere();
+        grass.Genere();
+        trees.Genere();
 
 
         void AddCliff(int t1, (int, int) id1, int t2, (int, int) id2, int t3, (int, int) id3)
@@ -575,17 +580,142 @@ public class Chunk : MonoBehaviour
         float abs = (float)(x + nbCaseX * indexXZ.x) * scale + Map.seed;
         float ord = (float)(z + nbCaseX * indexXZ.y) * scale;
         int biome = GetBiomeIndex(z,x);
-        /*
-        if (biome == (int)BiomeType.Water)
+
+        if(Map.type == MapType.Earth)
         {
-            float val = 4f * Mathf.PerlinNoise(abs, ord) +
-                2f * Mathf.PerlinNoise(abs * 2, ord * 2) +
-                1f * Mathf.PerlinNoise(abs * 3, ord * 3) +
-                0.5f * Mathf.PerlinNoise(abs * 4, ord * 4) +
-                0.25f * Mathf.PerlinNoise(abs * 5, ord * 5);
-            return Mathf.RoundToInt(val);
-        }*/
-        return biome;
+            bool T1 = 2f * Mathf.PerlinNoise(abs * 2, ord * 2) < 1.35f ;
+            if (biome == (int)BiomeType.Water)
+            {
+                if (T1) { return (int)CellType.Sand; }
+                else { return (int)CellType.Sand; }
+            }
+            else 
+            if (biome == (int)BiomeType.GrassLand1)
+            {
+                if (T1) { return (int)CellType.Grass1; }
+                else { return (int)CellType.Dirt; }
+            }
+            else
+            if (biome == (int)BiomeType.GrassLand2)
+            {
+                if (T1) { return (int)CellType.Grass2; }
+                else { return (int)CellType.Sand; }
+            }
+            else
+            if (biome == (int)BiomeType.Mountain)
+            {
+                if (T1) { return (int)CellType.Grass1; }
+                else { return (int)CellType.Snow; }
+            }
+            else
+            if (biome == (int)BiomeType.Canyon)
+            {
+                if (T1) { return (int)CellType.Dirt; }
+                else { return (int)CellType.Grass2; }
+            }
+        }
+        else
+        if(Map.type == MapType.IceDesert)
+        {
+            bool T1 = 2f * Mathf.PerlinNoise(abs * 2, ord * 2) < 1.35f;
+            if (biome == (int)BiomeType.Water)
+            {
+                if (T1) { return (int)CellType.Ice; }
+                else { return (int)CellType.Snow; }
+            }
+            else
+            if (biome == (int)BiomeType.GrassLand1)
+            {
+                if (T1) { return (int)CellType.Snow; }
+                else { return (int)CellType.Ice; }
+            }
+            else
+            if (biome == (int)BiomeType.GrassLand2)
+            {
+                if (T1) { return (int)CellType.Snow; }
+                else { return (int)CellType.Grass1; }
+            }
+            else
+            if (biome == (int)BiomeType.Mountain)
+            {
+                if (T1) { return (int)CellType.Ice; }
+                else { return (int)CellType.Snow; }
+            }
+            else
+            if (biome == (int)BiomeType.Canyon)
+            {
+                if (T1) { return (int)CellType.Snow; }
+                else { return (int)CellType.Ice; }
+            }
+        }
+        else
+        if (Map.type == MapType.LavaDesert)
+        {
+            bool T1 = 2f * Mathf.PerlinNoise(abs * 2, ord * 2) < 1.35f;
+            if (biome == (int)BiomeType.Water)
+            {
+                if (T1) { return (int)CellType.Rock2; }
+                else { return (int)CellType.Rock2; }
+            }
+            else
+            if (biome == (int)BiomeType.GrassLand1)
+            {
+                if (T1) { return (int)CellType.Rock1; }
+                else { return (int)CellType.Dirt; }
+            }
+            else
+            if (biome == (int)BiomeType.GrassLand2)
+            {
+                if (T1) { return (int)CellType.Rock2; }
+                else { return (int)CellType.Rock1; }
+            }
+            else
+            if (biome == (int)BiomeType.Mountain)
+            {
+                if (T1) { return (int)CellType.Rock2; }
+                else { return (int)CellType.Rock2; }
+            }
+            else
+            if (biome == (int)BiomeType.Canyon)
+            {
+                if (T1) { return (int)CellType.Rock2; }
+                else { return (int)CellType.Rock1; }
+            }
+        }
+        else
+        if (Map.type == MapType.Sky)
+        {
+            bool T1 = 2f * Mathf.PerlinNoise(abs * 2, ord * 2) < 1.35f;
+            if (biome == (int)BiomeType.Water)
+            {
+                if (T1) { return (int)CellType.Dirt; }
+                else { return (int)CellType.Dirt; }
+            }
+            else
+            if (biome == (int)BiomeType.GrassLand1)
+            {
+                if (T1) { return (int)CellType.Grass1; }
+                else { return (int)CellType.Dirt; }
+            }
+            else
+            if (biome == (int)BiomeType.GrassLand2)
+            {
+                if (T1) { return (int)CellType.Grass2; }
+                else { return (int)CellType.Rock1; }
+            }
+            else
+            if (biome == (int)BiomeType.Mountain)
+            {
+                if (T1) { return (int)CellType.Rock1; }
+                else { return (int)CellType.Snow; }
+            }
+            else
+            if (biome == (int)BiomeType.Canyon)
+            {
+                if (T1) { return (int)CellType.Dirt; }
+                else { return (int)CellType.Rock1; }
+            }
+        }
         return 0;
     }
 
@@ -642,7 +772,6 @@ public class Chunk : MonoBehaviour
         x += nbCaseX * indexXZ.x;
         z += nbCaseX * indexXZ.y;
         int biomeSize = Map.instance.biomeSize;
-        Texture2D noiseRGB = Map.instance.rgbNoise;
         Vector2 cell = new Vector2(x, z);
         Vector2Int biome0 = new Vector2Int((x / biomeSize) * biomeSize, (z / biomeSize) * biomeSize);
         Vector2Int biome1 = new Vector2Int((x / biomeSize + 1) * biomeSize, (z / biomeSize) * biomeSize);
@@ -676,6 +805,7 @@ public class Chunk : MonoBehaviour
         {
             if (biome < biomeProba[i]) { finalBiome = i; break; }
         }
+        if (finalBiome == (int)BiomeType.Canyon) { print("canyon"); };
         return finalBiome;
     }
 

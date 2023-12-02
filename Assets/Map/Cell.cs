@@ -10,7 +10,7 @@ public class Cell
 }
 public enum CellType
 {
-    Cliff, Grass1, Grass2, Rock, Sand, Snow, Gravel
+    Cliff, Grass1, Grass2, Dirt, Sand, Snow, Ice, Rock1, Rock2
 }
 public enum BiomeType
 {
