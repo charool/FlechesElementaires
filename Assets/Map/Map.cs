@@ -126,5 +126,5 @@ public class Map : MonoBehaviour
 }
 public enum MapType
 {
-    Spawn,Map1
+    Spawn,Earth,Sky,IceDesert,LavaDesert
 }

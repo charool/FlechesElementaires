@@ -17,6 +17,9 @@ public class UIFonctions : MonoBehaviour
     public static UIFonctions instance;
 
     private const int defaultFPS = 90;
+
+    [SerializeField]
+    Transform spawnPoint;
     private void Awake()
     {
         FPStarget(defaultFPS);
@@ -32,7 +35,7 @@ public class UIFonctions : MonoBehaviour
         Player.instance.UnableDeplacement();
         spawn.SetActive(true);
         Map.type = MapType.Spawn;
-        Player.instance.transform.position = new Vector3(0f,2f,0f);
+        Player.instance.transform.position = spawnPoint.position;
         Map.instance.Destroy();
     }
 

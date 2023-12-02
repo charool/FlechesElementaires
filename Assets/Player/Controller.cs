@@ -132,6 +132,17 @@ public class Controller : Humanoid,IHitable
         UpdateHumanoid(angle);
     }
 
+    void LateUpdate()
+    {
+        if (Map.type == MapType.Spawn)
+        {
+            Vector3 pos = transform.position;
+            pos.x = Mathf.Clamp(pos.x, -13f, 13f);
+            pos.z = Mathf.Clamp(pos.z, -13f, 13f);
+            transform.position = pos;
+        }
+    }
+
     public void Hit(Vector3 direction, ArrowType type)
     {
         print("Im heat");
