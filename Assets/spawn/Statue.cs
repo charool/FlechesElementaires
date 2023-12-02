@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class Statue : MonoBehaviour
 {
-    [SerializeField]
-    GameObject StatueMenu;
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider __other)
     {
-        if(!other.CompareTag("Player")) { return; }
-        StatueMenu.SetActive(true);
-        InventoryBar.Instance.gameObject.SetActive(false);
+        if(__other.CompareTag("Player")) {
+            MessageManager.Instance.Broadcast("Statue");
+        }
     }
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider __other)
     {
-        if (!other.CompareTag("Player")) { return; }
-        StatueMenu.SetActive(false);
-        InventoryBar.Instance.gameObject.SetActive(true);
+        if (__other.CompareTag("Player")) {
+            MessageManager.Instance.Shown = false;
+        }
     }
 }
