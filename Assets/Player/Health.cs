@@ -10,7 +10,9 @@ public class Health : MonoBehaviour
     public Sprite emptyHeart;
     public Sprite fullHeart;
 
-    public Canvas canvas;
+    [SerializeField]
+    private Canvas canvas;
+
     public float spacing;
 
     [SerializeField]
@@ -30,7 +32,7 @@ public class Health : MonoBehaviour
     public bool IsDead => HealthValue != 0;
     public byte maxHealth;
 
-    public bool UpdateNeeded { get; private set; } = true;
+    private bool UpdateNeeded { get; set; } = true;
 
     public void Damage(byte __b)
     {
