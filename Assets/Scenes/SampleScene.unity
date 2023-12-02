@@ -6765,7 +6765,7 @@ MonoBehaviour:
   - 0.8
   - 1.1
   rgbNoise: {fileID: 2800000, guid: e46e069548d73f4448e12fde231d8965, type: 3}
-  biomeSize: 6
+  biomeSize: 8
 --- !u!4 &1980487955
 Transform:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ public class Grass : MonoBehaviour
     private float size;
     [SerializeField]
     private GameObject grass;
-    public void Generate()
+    public void Genere()
     {
         List<Vector3> vertices = terrain.GetVertices();
         List<int> triangles = terrain.GetTriangles();
@@ -71,8 +71,8 @@ public class Grass : MonoBehaviour
         }
 
 
-        GetComponent<ProceduralMesh>().SetMeshGrassData(verticesw,trianglesw,uvw);
-        GetComponent<ProceduralMesh>().Aplly();
+        //GetComponent<ProceduralMesh>().SetMeshGrassData(verticesw,trianglesw,uvw);
+        //GetComponent<ProceduralMesh>().Aplly();
 
         void AddGrass(Vector3 pos)
         {
