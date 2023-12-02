@@ -13,17 +13,16 @@ public class InventoryBar : MonoBehaviour
     [SerializeField] private List<Sprite> sprites;
 
     [SerializeField] private Image selectionImage;
-    [SerializeField] private Sprite selectionSprite;
 
     [SerializeField] private int _selected = 0;
 
-    public int Selected
+    public ArrowType Selected
     {
-        get => _selected;
+        get => (ArrowType) (_selected + 1);
 
         set
         {
-            _selected = value;
+            _selected = (int) value - 1;
             updateNeeded = true;
         }
     }
@@ -58,7 +57,7 @@ public class InventoryBar : MonoBehaviour
     {
         if (updateNeeded) {
             selectionImage.transform.position =
-                images[Selected].transform.position;
+                images[_selected].transform.position;
 
             updateNeeded = false;
         }

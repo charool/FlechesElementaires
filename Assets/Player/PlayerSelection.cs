@@ -4,47 +4,52 @@ using UnityEngine;
 
 public class PlayerSelection : MonoBehaviour
 {
-    [SerializeField]
-    private List<GameObject> arrowPrefabs;
-
-    [SerializeField]
-    private List<byte> arrowInventory;
+    [SerializeField] private List<byte> arrowInventory;
+    [SerializeField] private List<GameObject> arrowPrefabs;
 
     private int _currentArrowType = 0;
 
-    public ArrowType currentArrowType
+    public ArrowType CurrentArrowType
     {
-        get => (ArrowType) _currentArrowType;
-        set => _currentArrowType = (int) value;
+        get => (ArrowType) (_currentArrowType + 1);
+        set => _currentArrowType = (int) value - 1;
     }
 
     public bool HasCurrentArrowType => arrowInventory[_currentArrowType] != 0;
 
-    public static bool IsValidArrowType(int __arrowType)
+    public static bool IsValidArrowType(ArrowType __arrowType)
     {
-        return Enum.IsDefined(typeof(ArrowType), __arrowType + 1) && __arrowType >= 0;
+        return
+            Enum.IsDefined(typeof(ArrowType), __arrowType)
+            && (__arrowType != ArrowType.None);
     }
 
     public bool NextArrowType()
     {
-        bool is_valid = IsValidArrowType(_currentArrowType + 1);
+        bool is_valid = IsValidArrowType(CurrentArrowType + 1);
 
         if (is_valid) {
             ++_currentArrowType;
-            InventoryBar.Instance.Selected = (int)currentArrowType;
+        } else {
+            _currentArrowType = 0;
         }
+
+        InventoryBar.Instance.Selected = CurrentArrowType;
 
         return is_valid;
     }
 
     public bool PreviousArrowType()
     {
-        bool is_valid = IsValidArrowType(_currentArrowType - 1);
+        bool is_valid = IsValidArrowType(CurrentArrowType - 1);
 
         if (is_valid) {
             --_currentArrowType;
-            InventoryBar.Instance.Selected = (int)currentArrowType;
+        } else {
+            _currentArrowType = (arrowPrefabs.Count - 1);
         }
+
+        InventoryBar.Instance.Selected = CurrentArrowType;
 
         return is_valid;
     }
@@ -58,7 +63,7 @@ public class PlayerSelection : MonoBehaviour
     {
         arrowInventory[(int)__a] += __b;
     }
-    public void SetNumberOfArrow(ArrowType __a, byte __b) 
+    public void SetNumberOfArrow(ArrowType __a, byte __b)
     {
         arrowInventory[(int) __a] = __b;
     }
@@ -66,13 +71,13 @@ public class PlayerSelection : MonoBehaviour
     public GameObject FireCurrentArrowType()
     {
         if (HasCurrentArrowType) {
-            print($"Firing '{(currentArrowType + 1).ToString()}' arrow!");
+            print($"Firing '{CurrentArrowType.ToString()}' arrow!");
 
             --arrowInventory[_currentArrowType];
 
             return arrowPrefabs[_currentArrowType];
         } else {
-            print($"No more '{(currentArrowType+1).ToString()}' arrow in the inventory!");
+            print($"No more '{CurrentArrowType.ToString()}' arrow in the inventory!");
         }
 
         return null;
