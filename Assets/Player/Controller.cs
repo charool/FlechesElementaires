@@ -148,7 +148,7 @@ public class Controller : Humanoid,IHitable
         } else {
             print("I'm hit!");
 
-            if (!IsDefending && (Vector3.Dot(transform.forward, direction) >= 0)) {
+            if (!IsDefending || (Vector3.Dot(transform.forward, direction) >= 0)) {
                 IsAttacking = false;
                 health -= 1;
                 LifeBar.Instance.HealthValue = (byte)health;

@@ -43,7 +43,7 @@ public class Arrow : MonoBehaviour
         if (!isShoot || didHit) { return; }
         if(other.tag == "arrow") { return; }
         didHit = true;
-        transform.SetParent(other.transform);
+        transform.SetParent(other.transform,true);
         IHitable target = other.GetComponent<IHitable>();
         if (target != null && other.gameObject != gameObject)
         {

@@ -95,7 +95,24 @@ public class Enemy : Humanoid,IHitable
 
         UpdateHumanoid(angle);
     }
+    void LateUpdate()
+    {
+        if (Map.type == MapType.Spawn) { return; }
+        Vector3 pos = transform.position;
+        Chunk chunk = Map.instance.GetChunk(pos);
+        if(chunk == null) { return; }
 
+        if (!chunk.gameObject.activeSelf)
+        {
+            chunk.AddEnemy(this.gameObject);
+            gameObject.SetActive(false);
+        }
+    }
+    [SerializeField] Tower tower;
+    public void SetTower(Tower t)
+    {
+        tower = t;
+    }
     public void Hit(Vector3 direction, ArrowType type)
     {
         print("HeatEnemy");
@@ -109,6 +126,7 @@ public class Enemy : Humanoid,IHitable
         if (health <= 0)
         {
             IsAlive = false;
+            tower.Remove(this);
             StartCoroutine(DestroyAftertime());
         }
     }

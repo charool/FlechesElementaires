@@ -16,6 +16,7 @@ public class Map : MonoBehaviour
 
     public static int seed;
     public static MapType type = MapType.Spawn;
+    public static ArrowType rewardtype =ArrowType.Clasique;
     public static Map instance;
 
     private GameObject[,] chunks;

@@ -69,7 +69,7 @@ public class Humanoid : MonoBehaviour
         if (isGrounded)
         {
             angle /= -Mathf.Rad2Deg;
-            if (fb > 1.5f) { direction = new Vector3(-fb * Mathf.Sin(angle), 0f, fb * Mathf.Cos(angle)); }
+            if (fb > 1.5f && !IsAiming && !IsReloading) { direction = new Vector3(-fb * Mathf.Sin(angle), 0f, fb * Mathf.Cos(angle)); }
             else { direction = new Vector3(rl * Mathf.Cos(angle) - fb * Mathf.Sin(angle), 0f, rl * Mathf.Sin(angle) + fb * Mathf.Cos(angle)).normalized; }
         }
         else { direction = directionMov; }

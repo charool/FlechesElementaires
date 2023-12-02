@@ -19,6 +19,8 @@ public class Chunk : MonoBehaviour
     [SerializeField]
     private Water water;
     [SerializeField]
+    private GenereBatiment genereBat;
+    [SerializeField]
     private float step = 0.5f;
 
     public static int nbCaseX = 6; // even
@@ -36,7 +38,10 @@ public class Chunk : MonoBehaviour
     public void Active()
     {
         gameObject.SetActive(true);
-
+        foreach(GameObject enemy in enemies)
+        {
+            enemy.SetActive(true);
+        }
         if(!generated)
         {
             generated = true;
@@ -511,6 +516,7 @@ public class Chunk : MonoBehaviour
         water.Genere();
         grass.Genere();
         trees.Genere();
+        genereBat.Genere();
 
 
         void AddCliff(int t1, (int, int) id1, int t2, (int, int) id2, int t3, (int, int) id3)
@@ -828,6 +834,12 @@ public class Chunk : MonoBehaviour
         if (i1 == i2 && i0 != i3) { return (float)(i0 + i2 + i3) / 3f; }//
         if (i2 == i3 && i0 != i1) { return (float)(i0 + i1 + i3) / 3f; }//
         return (float)(i0 + i1 + i2 + i3) / 4f;
+    }
+
+    List<GameObject> enemies = new List<GameObject>();
+    public void AddEnemy(GameObject g)
+    {
+        enemies.Add(g);
     }
 }
 
