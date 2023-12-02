@@ -44,7 +44,7 @@ public class InventoryBar : MonoBehaviour
         }
 
         for (int i = 1; i != sprites.Count; ++i) {
-            images.Add(Instantiate(images[^1], images[^1].transform));
+            images.Add(Instantiate(images[^1], images[^1].transform.localPosition, images[^1].transform.localRotation));
 
             images[^1].name = $"{images[0].name} ({i})";
 
