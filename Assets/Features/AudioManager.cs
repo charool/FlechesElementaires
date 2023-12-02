@@ -4,7 +4,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     private Dictionary<Sound, AudioSource> AudioSources { get; set; }
-    public AudioManager Instance { get; private set; }
+    public static AudioManager Instance { get; private set; }
 
     [field: SerializeField] public List<Sound> Sounds { get; set; }
 
