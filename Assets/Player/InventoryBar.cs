@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -58,6 +59,16 @@ public class InventoryBar : MonoBehaviour
     protected void Update()
     {
         if (updateNeeded) {
+            for (int i = 0; i != items.Count; ++i) {
+                images[i]
+                    .transform
+                    .Find("Count Label")
+                    .gameObject
+                    .GetComponent<TextMeshProUGUI>()
+                    .text
+                    = items[i].Count.ToString();
+            }
+
             selectionImage.transform.position =
                 images[_selected].transform.position;
 
