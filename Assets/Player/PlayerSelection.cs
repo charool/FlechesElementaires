@@ -17,6 +17,16 @@ public class PlayerSelection : MonoBehaviour
 
     public bool HasCurrentArrowType => arrowInventory[_currentArrowType] != 0;
 
+    protected void Start()
+    {
+        for (int i = 0; i != arrowInventory.Count; ++i) {
+            InventoryBar.Instance.setItemCount(
+                (ArrowType)(i + 1),
+                arrowInventory[i]
+            );
+        }
+    }
+
     public static bool IsValidArrowType(ArrowType __arrowType)
     {
         return
@@ -54,18 +64,17 @@ public class PlayerSelection : MonoBehaviour
         return is_valid;
     }
 
-    public byte GetNumberOfArrow(ArrowType __a)
-    {
-        return arrowInventory[(int) __a];
-    }
+    public byte GetNumberOfArrow(ArrowType __a) => arrowInventory[(int) __a - 1];
 
     public void AddNumberOfArrow(ArrowType __a, byte __b)
     {
-        arrowInventory[(int)__a] += __b;
+        SetNumberOfArrow(__a, (byte) (GetNumberOfArrow(__a) + __b));
     }
+
     public void SetNumberOfArrow(ArrowType __a, byte __b)
     {
-        arrowInventory[(int) __a] = __b;
+        arrowInventory[(int) __a - 1] = __b;
+        InventoryBar.Instance.setItemCount(__a, arrowInventory[(int)__a - 1]);
     }
 
     public GameObject FireCurrentArrowType()
@@ -73,6 +82,7 @@ public class PlayerSelection : MonoBehaviour
         if (HasCurrentArrowType) {
             print($"Firing '{CurrentArrowType.ToString()}' arrow!");
 
+            InventoryBar.Instance.dropItemCount(CurrentArrowType);
             --arrowInventory[_currentArrowType];
 
             return arrowPrefabs[_currentArrowType];

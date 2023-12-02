@@ -77,4 +77,18 @@ public class InventoryBar : MonoBehaviour
             updateNeeded = false;
         }
     }
+
+    public void dropItemCount(ArrowType __type)
+    {
+        --items[(int) (__type - 1)].Count;
+
+        updateNeeded = true;
+    }
+
+    public void setItemCount(ArrowType __type, byte __count)
+    {
+        items[(int) (__type - 1)].Count = __count;
+
+        updateNeeded = true;
+    }
 }
