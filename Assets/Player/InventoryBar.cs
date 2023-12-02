@@ -4,29 +4,18 @@ using UnityEngine.UI;
 
 public class InventoryBar : MonoBehaviour
 {
-    public static InventoryBar Instance;
+    public static InventoryBar Instance { get; private set; }
 
-    [SerializeField]
-    private Canvas canvas;
+    [SerializeField] private float spacing;
+    private bool updateNeeded = true;
 
-    [SerializeField]
-    private float spacing;
-    private bool UpdateNeeded { get; set; } = true;
+    [SerializeField] private List<Image> images;
+    [SerializeField] private List<Sprite> sprites;
 
-    [SerializeField]
-    private List<Image> images;
+    [SerializeField] private Image selectionImage;
+    [SerializeField] private Sprite selectionSprite;
 
-    [SerializeField]
-    private List<Sprite> sprites;
-
-    [SerializeField]
-    private Image selectionImage;
-
-    [SerializeField]
-    private Sprite selectionSprite;
-
-    [SerializeField]
-    private int _selected = 0;
+    [SerializeField] private int _selected = 0;
 
     public int Selected
     {
@@ -35,13 +24,17 @@ public class InventoryBar : MonoBehaviour
         set
         {
             _selected = value;
-            UpdateNeeded = true;
+            updateNeeded = true;
         }
+    }
+
+    protected void Awake()
+    {
+        Instance = this;
     }
 
     protected void Start()
     {
-        Instance = this;
         for (int i = 0; i != images.Count; ++i) {
             images[i].sprite = sprites[i];
         }
@@ -50,12 +43,12 @@ public class InventoryBar : MonoBehaviour
             images.Add(Instantiate(images[^1]));
 
             images[^1].name = $"{images[0].name} ({i})";
-            
+
             images[^1].transform.Translate(
                 selectionImage.rectTransform.rect.width + spacing, 0, 0
             );
 
-            images[^1].transform.SetParent(canvas.transform, false);
+            images[^1].transform.SetParent(gameObject.transform, false);
         }
 
         images[0].name = $"{images[0].name} (0)";
@@ -63,11 +56,11 @@ public class InventoryBar : MonoBehaviour
 
     protected void Update()
     {
-        if (UpdateNeeded) {
+        if (updateNeeded) {
             selectionImage.transform.position =
                 images[Selected].transform.position;
 
-            UpdateNeeded = false;
+            updateNeeded = false;
         }
     }
 }

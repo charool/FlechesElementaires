@@ -147,7 +147,7 @@ public class Controller : Humanoid,IHitable
         if (IsDefending && Vector3.Dot(transform.forward, direction) < 0) { return; }
         IsAttacking = false;
         health -= 1;
-        Health.instance.HealthValue = (byte)health;
+        LifeBar.Instance.HealthValue = (byte)health;
         if (health <= 0 && IsAlive)
         {
             IsAlive = false;
