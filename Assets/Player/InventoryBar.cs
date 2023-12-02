@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,9 +11,10 @@ public class InventoryBar : MonoBehaviour
     private bool updateNeeded = true;
 
     [SerializeField] private List<Image> images;
-    [SerializeField] private List<Sprite> sprites;
+    [SerializeField] private List<InventoryItem> items;
 
     [SerializeField] private Image selectionImage;
+    [SerializeField] private TextMeshProUGUI selectionLabel;
 
     [SerializeField] private int _selected = 0;
 
@@ -34,11 +36,7 @@ public class InventoryBar : MonoBehaviour
 
     protected void Start()
     {
-        for (int i = 0; i != images.Count; ++i) {
-            images[i].sprite = sprites[i];
-        }
-
-        for (int i = 1; i != sprites.Count; ++i) {
+         for (int i = 1; i != items.Count; ++i) {
             images.Add(Instantiate(images[^1]));
 
             images[^1].name = $"{images[0].name} ({i})";
@@ -50,6 +48,10 @@ public class InventoryBar : MonoBehaviour
             images[^1].transform.SetParent(gameObject.transform, false);
         }
 
+        for (int i = 0; i != items.Count; ++i) {
+            images[i].sprite = items[i].Sprite;
+        }
+
         images[0].name = $"{images[0].name} (0)";
     }
 
@@ -58,6 +60,8 @@ public class InventoryBar : MonoBehaviour
         if (updateNeeded) {
             selectionImage.transform.position =
                 images[_selected].transform.position;
+
+            selectionLabel.text = items[_selected].Label;
 
             updateNeeded = false;
         }
