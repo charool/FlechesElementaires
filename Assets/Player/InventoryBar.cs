@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class InventoryBar : MonoBehaviour
 {
+    public static InventoryBar Instance;
+
     [SerializeField]
     private Canvas canvas;
 
@@ -39,15 +41,16 @@ public class InventoryBar : MonoBehaviour
 
     protected void Start()
     {
+        Instance = this;
         for (int i = 0; i != images.Count; ++i) {
             images[i].sprite = sprites[i];
         }
 
         for (int i = 1; i != sprites.Count; ++i) {
-            images.Add(Instantiate(images[^1], images[^1].transform.localPosition, images[^1].transform.localRotation));
+            images.Add(Instantiate(images[^1]));
 
             images[^1].name = $"{images[0].name} ({i})";
-
+            
             images[^1].transform.Translate(
                 selectionImage.rectTransform.rect.width + spacing, 0, 0
             );

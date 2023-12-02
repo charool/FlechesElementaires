@@ -22,7 +22,7 @@ public class PlayerSelection : MonoBehaviour
 
     public static bool IsValidArrowType(int __arrowType)
     {
-        return Enum.IsDefined(typeof(ArrowType), __arrowType + 1) ;
+        return Enum.IsDefined(typeof(ArrowType), __arrowType + 1) && __arrowType >= 0;
     }
 
     public bool NextArrowType()
@@ -31,6 +31,7 @@ public class PlayerSelection : MonoBehaviour
 
         if (is_valid) {
             ++_currentArrowType;
+            InventoryBar.Instance.Selected = (int)currentArrowType;
         }
 
         return is_valid;
@@ -42,6 +43,7 @@ public class PlayerSelection : MonoBehaviour
 
         if (is_valid) {
             --_currentArrowType;
+            InventoryBar.Instance.Selected = (int)currentArrowType;
         }
 
         return is_valid;

@@ -120,12 +120,10 @@ public class Controller : Humanoid,IHitable
         int changeArrowType= (int)Input.mouseScrollDelta.y;
         if (changeArrowType == 1)
         {
-            print("+");
             selectionArrow.NextArrowType();
         }
         else if (changeArrowType == -1)
         {
-            print("-");
             selectionArrow.PreviousArrowType();
         }
 
@@ -149,6 +147,7 @@ public class Controller : Humanoid,IHitable
         if (IsDefending && Vector3.Dot(transform.forward, direction) < 0) { return; }
         IsAttacking = false;
         health -= 1;
+        Health.instance.HealthValue = (byte)health;
         if (health <= 0 && IsAlive)
         {
             IsAlive = false;

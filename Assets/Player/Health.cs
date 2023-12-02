@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
+    public static Health instance;
+
     [SerializeField]
     private List<Image> images;
 
@@ -17,6 +19,7 @@ public class Health : MonoBehaviour
 
     [SerializeField]
     private byte _health;
+
 
     public byte HealthValue
     {
@@ -56,6 +59,7 @@ public class Health : MonoBehaviour
 
     protected void Start()
     {
+        instance = this;
         for (int i = 1; i != maxHealth; ++i) {
             images.Add(Instantiate(images[^1], images[^1].transform));
 
