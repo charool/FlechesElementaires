@@ -39,9 +39,9 @@ public class Controller : Humanoid,IHitable
 
         if (IsJumping && isGrounded) { IsJumping = false; }
 
-        if (isGrounded && Input.GetKey(Raccourcis.up)) 
-        { 
-            jumpVelocity = jumpSpeed; 
+        if (isGrounded && Input.GetKey(Raccourcis.up))
+        {
+            jumpVelocity = jumpSpeed;
             IsJumping = true;
         }
 
@@ -55,8 +55,8 @@ public class Controller : Humanoid,IHitable
             if (Input.GetKey(Raccourcis.rigth)) { rl += 1f; }
             if (Input.GetKey(Raccourcis.left)) { rl -= 1f; }
             if (Input.GetKey(Raccourcis.back)) { fb -= 1f; }
-            if (Input.GetKey(Raccourcis.forward)) 
-            { 
+            if (Input.GetKey(Raccourcis.forward))
+            {
                 fb += 1f;
                 if (Input.GetKey(Raccourcis.sprint)) { fb = 2f; }
             }
@@ -99,9 +99,9 @@ public class Controller : Humanoid,IHitable
             IsAiming = false;
             IsReloading = false;
         }
-        
-        if(Input.GetKeyDown(Raccourcis.change)) 
-        { 
+
+        if(Input.GetKeyDown(Raccourcis.change))
+        {
             Archer = !Archer;
             if (Archer)
             {
@@ -143,15 +143,21 @@ public class Controller : Humanoid,IHitable
 
     public void Hit(Vector3 direction, ArrowType type)
     {
-        print("Im heat");
-        if (IsDefending && Vector3.Dot(transform.forward, direction) < 0) { return; }
-        IsAttacking = false;
-        health -= 1;
-        LifeBar.Instance.HealthValue = (byte)health;
-        if (health <= 0 && IsAlive)
-        {
-            IsAlive = false;
-            StartCoroutine(Respawn());
+        if (health == 0) {
+            print("I'm already dead!");
+        } else {
+            print("I'm hit!");
+
+            if (!IsDefending && (Vector3.Dot(transform.forward, direction) >= 0)) {
+                IsAttacking = false;
+                health -= 1;
+                LifeBar.Instance.HealthValue = (byte)health;
+
+                if (health <= 0 && IsAlive) {
+                    IsAlive = false;
+                    StartCoroutine(Respawn());
+                }
+            }
         }
     }
     private IEnumerator Respawn()
@@ -160,6 +166,7 @@ public class Controller : Humanoid,IHitable
         UIFonctions.instance.Spawn();
         IsAlive = true;
         health = 3;
+        LifeBar.Instance.HealthValue = 3;
     }
     private IEnumerator AttackDelay()
     {
