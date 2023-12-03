@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1834615, g: 0.2290378, b: 0.30586767, a: 1}
+  m_IndirectSpecularColor: {r: 0.18346119, g: 0.22903752, b: 0.30586722, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2159,13 +2159,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messages:
   - <Content>k__BackingField: "On dit que Lui seul est capable de maintenir l'\xE9quilibre
-      entre les forces \xE9l\xE9mentaires. Mais, des \xEAtres malveillants et avides
+      entre les forces \xE9l\xE9mentaires.\\nMais, des \xEAtres malveillants et avides
       de pouvoir sont venus r\xE9clamer ce qu'ils consid\xE9raient \xEAtre leur d\xFB.
       Ils se cachent dor\xE9navant dans leur monde respectif derri\xE8re ces quatre
       portails. Ils donneront leur vie s'il le faut mais jamais ils ne rendront ce
       qu'ils ont pris. La Proph\xE9tie raconte qu'un jour viendra o\xF9 un jeune
       archer intr\xE9pide viendra pour ramener l'\xE9quilibre entre les \xE9l\xE9ments."
     <Name>k__BackingField: Statue
+  - <Content>k__BackingField: "Bienvenue dans La Sainte Vall\xE9e jeune aventurier
+      ! Ce lieu honore le Grand \xC9l\xE9phant comme le montre l'autel en son centre. 
+      Ce serait une h\xE9r\xE9sie de ne pas s'y prosterner !"
+    <Name>k__BackingField: Spawn
+  - <Content>k__BackingField: "Un cristal \xE9l\xE9mentaire a \xE9t\xE9 r\xE9cup\xE9r\xE9
+      ! Retourne \xE0 La Sainte Vall\xE9e pour observer ton \u0153uvre."
+    <Name>k__BackingField: BossDead
 --- !u!1 &499734561 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8395179508934260424, guid: 7854b84191db78846b4f1b1abcf97b33,
@@ -3826,6 +3833,16 @@ MonoBehaviour:
       type: 3}
     <Loop>k__BackingField: 1
     <Name>k__BackingField: Levels/icedesert
+    <Volume>k__BackingField: 0.25
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 1f950188d34f7f04a87a1c59f8a5ef97,
+      type: 3}
+    <Loop>k__BackingField: 1
+    <Name>k__BackingField: Levels/icedesert
+    <Volume>k__BackingField: 0.25
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 6a7a26e3a6e8c8140a375a8eb27f0036,
+      type: 3}
+    <Loop>k__BackingField: 0
+    <Name>k__BackingField: Effects/boss_dead
     <Volume>k__BackingField: 0.25
 --- !u!1 &1016701675
 GameObject:

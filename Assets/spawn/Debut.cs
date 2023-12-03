@@ -8,7 +8,7 @@ public class Debut : MonoBehaviour
     {
         if (__other.CompareTag("Player"))
         {
-            MessageManager.Instance.Broadcast("Statue");
+            MessageManager.Instance.Broadcast("Spawn");
         }
     }
     private void OnTriggerExit(Collider __other)
