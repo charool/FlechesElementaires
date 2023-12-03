@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 164600493135400842}
   - component: {fileID: 209252187473775186}
   - component: {fileID: 3027545061987636128}
+  - component: {fileID: 8003251258396519799}
   m_Layer: 7
   m_Name: Features
   m_TagString: Untagged
@@ -71,6 +72,22 @@ MonoBehaviour:
   treeDead: {fileID: 8433621967987648449, guid: a41cd6f37673ad744b493107e4285dce,
     type: 3}
   arbreProba: 0.125
+--- !u!114 &8003251258396519799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972651276394325086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2a6f6b4c999f094cb98c37039cb8c10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tower: {fileID: 7235586186453508853, guid: 1ee806cb78345714faac32c2ee1c4b68, type: 3}
+  house: {fileID: 3192859668721563260, guid: 502fa216f25916a4ba62b496ce10e89a, type: 3}
+  terrain: {fileID: 6137368970061965910}
+  probaBat: 0.5
 --- !u!1 &3091057528095907200
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,6 +141,7 @@ MonoBehaviour:
   grass: {fileID: 209252187473775186}
   trees: {fileID: 3027545061987636128}
   water: {fileID: 7903403194700506336}
+  genereBat: {fileID: 8003251258396519799}
   step: 0.35
   generated: 0
   scale: 0.2

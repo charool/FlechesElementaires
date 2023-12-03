@@ -21,7 +21,7 @@ MonoBehaviour:
   triggerDistance: 4
   portee: 0.2
   detectionTime: 0.2
-  maxHealth: 10
+  maxHealth: 3
   attackDuration: 0.65
   asElem: 0
   element: 0

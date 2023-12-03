@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7771597480301601330}
   - component: {fileID: 5636324182672918825}
   - component: {fileID: 7381858033798676620}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ArrowFirePrefab
   m_TagString: arrow
   m_Icon: {fileID: 0}
@@ -52,6 +52,7 @@ MonoBehaviour:
   speed: 3
   maxTime: 6
   time: 0
+  type: 6
 --- !u!65 &7771597480301601330
 BoxCollider:
   m_ObjectHideFlags: 0

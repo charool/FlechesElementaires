@@ -15,6 +15,8 @@ public class Arrow : MonoBehaviour
     [SerializeField]
     float time=0f;
 
+    [SerializeField]
+    ArrowType type = ArrowType.Clasique;
     private void Update()
     {
         if (isShoot && !didHit)
@@ -43,11 +45,11 @@ public class Arrow : MonoBehaviour
         if (!isShoot || didHit) { return; }
         if(other.tag == "arrow") { return; }
         didHit = true;
-        transform.SetParent(other.transform);
+        transform.SetParent(other.transform,true);
         IHitable target = other.GetComponent<IHitable>();
 
         if (target != null && other.gameObject != gameObject) {
-            target.Hit(transform.forward, ArrowType.None);
+            target.Hit(transform.forward, type);
         } else {
             AudioManager.Instance.Play("Effects/arrow_wall");
         }

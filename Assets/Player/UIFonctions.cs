@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIFonctions : MonoBehaviour
@@ -36,7 +37,13 @@ public class UIFonctions : MonoBehaviour
         spawn.SetActive(true);
         Map.type = MapType.Spawn;
         Player.instance.transform.position = spawnPoint.position;
+        List<GameObject> list = Map.enemies;
+        foreach (GameObject g in list)
+        {
+            Destroy(g);
+        }
         Map.instance.Destroy();
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void Quit()

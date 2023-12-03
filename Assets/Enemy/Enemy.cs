@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -45,6 +46,13 @@ public class Enemy : Humanoid,IHitable
             fb = 0f;
             rl = 0f;
             return;
+        }
+        if (transform.position.y < Map.instance.waterLevel)
+        {
+            if (Map.type == MapType.LavaDesert)
+            {
+                Hit(Vector3.up, ArrowType.None);
+            }
         }
         if (IsStun)
         {
@@ -95,23 +103,43 @@ public class Enemy : Humanoid,IHitable
 
         UpdateHumanoid(angle);
     }
+    void LateUpdate()
+    {
+        if (Map.type == MapType.Spawn) { return; }
+        Vector3 pos = transform.position;
+        Chunk chunk = Map.instance.GetChunk(pos);
+        if(chunk == null) { return; }
 
+        if (!chunk.gameObject.activeSelf)
+        {
+            chunk.AddEnemy(this.gameObject);
+            gameObject.SetActive(false);
+        }
+    }
+    [SerializeField] Tower tower;
+    public void SetTower(Tower t)
+    {
+        tower = t;
+    }
     public void Hit(Vector3 direction, ArrowType type)
     {
         print("Ennemy is hit!");
         if (health == 0) { return; }
         if (IsDefending && Vector3.Dot(transform.forward, direction) < 0) { return; }
-        if(stat.asElem && type != stat.weakness) { return; }
+        if(stat.asElem && type != stat.weakness && type != ArrowType.Wind) { return; }
         IsAttacking = false;
         wantToAttack = false;
         IsStun = true;
         directionStun = direction;
+        if (type == ArrowType.Wind) {  directionStun *=2f; }
+        if (stat.asElem && type != stat.weakness) { return; }
         health -= 1;
 
         AudioManager.Instance.Play("Effects/damage");
 
         if (health == 0) {
             IsAlive = false;
+            tower.Remove(this);
             StartCoroutine(DestroyAftertime());
         }
     }
@@ -171,8 +199,11 @@ public class Enemy : Humanoid,IHitable
         }
         else
         {
-            fb = Mathf.RoundToInt((float)Random.Range(-3, 4)/ 4.5f);
-            rl = Mathf.RoundToInt((float)Random.Range(-3, 4) / 4.5f);
+            if(Random.value < 0.25f)
+            {
+                fb = Mathf.RoundToInt((float)Random.Range(-3, 4) / 4.5f);
+                rl = Mathf.RoundToInt((float)Random.Range(-3, 4) / 4.5f);
+            }else { fb = 0f;rl = 0f; }
         }
     }
     private IEnumerator AttackDelay()

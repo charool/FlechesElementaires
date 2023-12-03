@@ -12,6 +12,7 @@ public class InventoryBar : MonoBehaviour
     private bool updateNeeded = true;
 
     [SerializeField] private List<Image> images;
+    [SerializeField] private List<Sprite> sprites;
     [SerializeField] private List<InventoryItem> items;
 
     [SerializeField] private Image selectionImage;
@@ -41,7 +42,6 @@ public class InventoryBar : MonoBehaviour
             images.Add(Instantiate(images[^1]));
 
             images[^1].name = $"{images[0].name} ({i})";
-
             images[^1].transform.Translate(
                 selectionImage.rectTransform.rect.width + spacing, 0, 0
             );
