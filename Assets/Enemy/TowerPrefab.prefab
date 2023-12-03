@@ -90,7 +90,7 @@ MonoBehaviour:
   - {fileID: 6021379270030550718, guid: 8036a8fe2de79b34ca9dfec7baeaa249, type: 3}
   - {fileID: 6021379270030550718, guid: 50f611970dd32aa4a8e47cc742269f58, type: 3}
   - {fileID: 6021379270030550718, guid: 5d52aee270e70b246b767143ed8482f5, type: 3}
-  probaElem: 1
+  probaElem: 0.25
 --- !u!65 &8825285919664175534
 BoxCollider:
   m_ObjectHideFlags: 0
