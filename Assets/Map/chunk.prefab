@@ -87,7 +87,7 @@ MonoBehaviour:
   tower: {fileID: 7235586186453508853, guid: 1ee806cb78345714faac32c2ee1c4b68, type: 3}
   house: {fileID: 3192859668721563260, guid: 502fa216f25916a4ba62b496ce10e89a, type: 3}
   terrain: {fileID: 6137368970061965910}
-  probaBat: 0.5
+  probaBat: 0.75
 --- !u!1 &3091057528095907200
 GameObject:
   m_ObjectHideFlags: 0
