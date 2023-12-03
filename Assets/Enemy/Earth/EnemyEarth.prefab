@@ -4919,7 +4919,7 @@ MonoBehaviour:
   g: 2
   health: 1
   stunTime: 0.25
-  stat: {fileID: 11400000, guid: 7e5c191ea792ed04d92e310845b6d98d, type: 2}
+  stat: {fileID: 11400000, guid: 8ec06ab37aaad214b87888295ca72808, type: 2}
   isTrigger: 0
   destroyTime: 10
   tower: {fileID: 0}

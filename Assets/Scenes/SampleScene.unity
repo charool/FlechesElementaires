@@ -1360,6 +1360,7 @@ MonoBehaviour:
   speed: 0.75
   rotSmooth: 0.05
   g: 2
+  health: 1
   stunTime: 0.5
   mainCamera: {fileID: 330585545}
   jumpSpeed: 4
@@ -3299,25 +3300,32 @@ MonoBehaviour:
   spacing: 0
   images:
   - {fileID: 83413029}
+  sprites: []
   items:
   - <Count>k__BackingField: 0
     <Label>k__BackingField: Classique
-    <Sprite>k__BackingField: {fileID: 0}
+    <Sprite>k__BackingField: {fileID: 21300000, guid: aa2f187ed12040449aa2da7a4c41b9d0,
+      type: 3}
   - <Count>k__BackingField: 0
     <Label>k__BackingField: Terre
-    <Sprite>k__BackingField: {fileID: 0}
+    <Sprite>k__BackingField: {fileID: 21300000, guid: 9a68c02f06df0364e853e7fdcff8dd53,
+      type: 3}
   - <Count>k__BackingField: 0
     <Label>k__BackingField: Vent
-    <Sprite>k__BackingField: {fileID: 0}
+    <Sprite>k__BackingField: {fileID: 21300000, guid: 24066bb8bbb3d8f4d9fecdd703d334b0,
+      type: 3}
   - <Count>k__BackingField: 0
     <Label>k__BackingField: "\xC9lectricit\xE9"
-    <Sprite>k__BackingField: {fileID: 0}
+    <Sprite>k__BackingField: {fileID: 21300000, guid: 1f1ba48ae8263f246a959e3454391969,
+      type: 3}
   - <Count>k__BackingField: 0
     <Label>k__BackingField: Glace
-    <Sprite>k__BackingField: {fileID: 0}
+    <Sprite>k__BackingField: {fileID: 21300000, guid: 908425e6609ccba438688d20e7ee9e00,
+      type: 3}
   - <Count>k__BackingField: 0
     <Label>k__BackingField: Feu
-    <Sprite>k__BackingField: {fileID: 0}
+    <Sprite>k__BackingField: {fileID: 21300000, guid: 8b7dfce847bf4f247b9bf4a7e9f5b7a1,
+      type: 3}
   selectionImage: {fileID: 454850}
   selectionLabel: {fileID: 645032661}
   _selected: 0
