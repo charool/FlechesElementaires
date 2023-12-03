@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dac46d6fa73a5164b8038e1b0e4e983c, type: 3}
-  m_Name: EnemyIcestat 1
+  m_Name: EnemyEarthstat
   m_EditorClassIdentifier: 
   changePaternTime: 2
   stopDistanceMax: 2
@@ -25,4 +25,4 @@ MonoBehaviour:
   attackDuration: 0.65
   asElem: 1
   element: 0
-  weakness: 4
+  weakness: 6

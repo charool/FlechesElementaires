@@ -736,7 +736,7 @@ public class Chunk : MonoBehaviour
 
         if(biome == (int)BiomeType.Water)
         {
-            float val = 1f * Mathf.PerlinNoise(abs, ord) +
+            float val = 1f + 1f * Mathf.PerlinNoise(abs, ord) +
                 0.5f * Mathf.PerlinNoise(abs * 2, ord * 2);
             return Mathf.RoundToInt(val);
         }

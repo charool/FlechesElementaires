@@ -18,10 +18,10 @@ public class Tower : MonoBehaviour
 
     public void Spawn()
     {
-        if(hasSpawn) { return; }
+        if(hasSpawn || Map.type == MapType.Spawn) { return; }
         if (Random.value < probaElem)
         {
-            Enemy g = Instantiate(elem[(int)Map.type]);
+            Enemy g = Instantiate(elem[(int)Map.type - 1]);
             g.transform.position = spawnPoint.position;
             enemys.Add(g);
             g.SetTower(this);
