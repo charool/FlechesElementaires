@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIFonctions : MonoBehaviour
@@ -37,6 +38,7 @@ public class UIFonctions : MonoBehaviour
         Map.type = MapType.Spawn;
         Player.instance.transform.position = spawnPoint.position;
         Map.instance.Destroy();
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void Quit()
