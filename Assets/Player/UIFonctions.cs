@@ -19,6 +19,16 @@ public class UIFonctions : MonoBehaviour
 
     private const int defaultFPS = 90;
 
+
+    [SerializeField]
+    private GameObject EarthCristal;
+    [SerializeField]
+    private GameObject ElecCristal;
+    [SerializeField]
+    private GameObject IceCristal;
+    [SerializeField]
+    private GameObject LavaCristal;
+
     [SerializeField]
     Transform spawnPoint;
     private void Awake()
@@ -46,6 +56,11 @@ public class UIFonctions : MonoBehaviour
         }
         Map.instance.Destroy();
         EventSystem.current.SetSelectedGameObject(null);
+
+        if (Player.asDefeatEarth) { EarthCristal.SetActive(true); }
+        if (Player.asDefeatElec) { ElecCristal.SetActive(true); }
+        if (Player.asDefeatIce) { IceCristal.SetActive(true); }
+        if (Player.asDefeatLava) { LavaCristal.SetActive(true); }
     }
 
     public void Quit()

@@ -150,6 +150,13 @@ public class Enemy : Humanoid,IHitable
         if (health == 0) {
             IsAlive = false;
             tower.Remove(this);
+            if(stat.asElem )
+            {
+                if(Map.type == MapType.Earth) { Player.asDefeatEarth = true; }
+                if (Map.type == MapType.LavaDesert) { Player.asDefeatLava = true; }
+                if (Map.type == MapType.IceDesert) { Player.asDefeatIce = true; }
+                if (Map.type == MapType.Sky) { Player.asDefeatElec = true; }
+            }
             StartCoroutine(DestroyAftertime());
         }
     }

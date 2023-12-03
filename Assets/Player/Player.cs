@@ -8,6 +8,11 @@ public class Player : MonoBehaviour
 
     public static Player instance;
 
+    public static bool asDefeatEarth = false;
+    public static bool asDefeatIce = false;
+    public static bool asDefeatElec = false;
+    public static bool asDefeatLava = false;
+
     private bool activeDeplacement = false;
     private bool activeDeplacementCheck = false;
 
