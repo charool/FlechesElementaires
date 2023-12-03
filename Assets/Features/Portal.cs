@@ -19,6 +19,8 @@ public class Portal : MonoBehaviour
             Map.rewardtype = rewardType;
             Map.instance.CreateMap();
             spawn.SetActive(false);
+
+            AudioManager.Instance.Play($"Levels/{type.ToString().ToLower()}");
         }
     }
 }

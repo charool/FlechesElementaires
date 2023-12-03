@@ -47,10 +47,13 @@ public class Arrow : MonoBehaviour
         didHit = true;
         transform.SetParent(other.transform,true);
         IHitable target = other.GetComponent<IHitable>();
-        if (target != null && other.gameObject != gameObject)
-        {
+
+        if (target != null && other.gameObject != gameObject) {
             target.Hit(transform.forward, type);
+        } else {
+            AudioManager.Instance.Play("Effects/arrow_wall");
         }
+
         StartCoroutine(DestroyAftertime());
     }
     private IEnumerator DestroyAftertime()

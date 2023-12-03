@@ -33,6 +33,8 @@ public class UIFonctions : MonoBehaviour
 
     public void Spawn()
     {
+        AudioManager.Instance.PlayDefaultLoop();
+
         Player.instance.UnableDeplacement();
         spawn.SetActive(true);
         Map.type = MapType.Spawn;

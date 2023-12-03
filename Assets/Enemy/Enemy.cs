@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class Enemy : Humanoid,IHitable
-{ 
+{
     [SerializeField]
     private EnemyStat stat;
 
@@ -133,8 +133,8 @@ public class Enemy : Humanoid,IHitable
     }
     public void Hit(Vector3 direction, ArrowType type)
     {
-        print("HeatEnemy");
-        print(type);
+        print("Ennemy is hit!");
+        if (health == 0) { return; }
         if (IsDefending && Vector3.Dot(transform.forward, direction) < 0) { return; }
         if(stat.asElem && type != stat.weakness && type != ArrowType.Wind) { return; }
         IsAttacking = false;
@@ -144,8 +144,10 @@ public class Enemy : Humanoid,IHitable
         if (type == ArrowType.Wind) {  directionStun *=2f; }
         if (stat.asElem && type != stat.weakness) { return; }
         health -= 1;
-        if (health <= 0)
-        {
+
+        AudioManager.Instance.Play("Effects/damage");
+
+        if (health == 0) {
             IsAlive = false;
             tower.Remove(this);
             StartCoroutine(DestroyAftertime());
@@ -188,7 +190,7 @@ public class Enemy : Humanoid,IHitable
             else
             {
                 rl = 0f;
-                fb = -1f; 
+                fb = -1f;
                 if (Random.value < stat.probaAttack)
                 {
                     wantToAttack = true;
