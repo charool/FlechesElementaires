@@ -3,15 +3,15 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    private Dictionary<Sound, AudioSource> AudioSources { get; set; } = new();
     public static AudioManager Instance { get; private set; }
 
-    [field: SerializeField] public List<Sound> Sounds { get; set; }
+    private Dictionary<Sound, AudioSource> AudioSources { get; set; } = new();
 
-    protected void Awake()
-    {
-        Instance = this;
-    }
+    public Sound CurrentLoop { get; private set; }
+    [field: SerializeField] public string DefaultLoop { get; private set; }
+    [field: SerializeField] public List<Sound> Sounds { get; private set; }
+
+    protected void Awake() => Instance = this;
 
     protected void Start()
     {
@@ -24,19 +24,45 @@ public class AudioManager : MonoBehaviour
 
             AudioSources.Add(sound, source);
         }
+
+        PlayDefaultLoop();
     }
 
     public void Play(string __name)
     {
-        AudioSource src = AudioSources[Sounds.Find(sound => sound.Name == __name)];
+        Sound sound = Sounds.Find(sound => sound.Name == __name);
 
-        if (src == null) {
+        if (sound == null) {
             print($"'{__name}' is not a correct audio name!");
-        } else if (!src.isPlaying) {
-            print($"Play '{__name}'");
-            src.Play();
         } else {
-            print($"'{__name}' is already being played!");
+            AudioSource src = AudioSources[sound];
+
+            if (!src.isPlaying) {
+                if (sound.Loop) {
+                    if (CurrentLoop != null) {
+                        print(
+                            $"Changing loop from '{CurrentLoop.Name}' to " +
+                            $"'{__name}'!"
+                        );
+
+                        AudioSources[CurrentLoop].Stop();
+                    }
+
+                    CurrentLoop = sound;
+                }
+
+                print($"Play '{__name}'!");
+                src.Play();
+            } else {
+                print($"'{__name}' is already being played!");
+            }
+        }
+    }
+
+    public void PlayDefaultLoop()
+    {
+        if (DefaultLoop != null) {
+            Play(DefaultLoop);
         }
     }
 }
