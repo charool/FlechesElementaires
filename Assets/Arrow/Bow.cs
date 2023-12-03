@@ -19,7 +19,7 @@ public class Bow : MonoBehaviour
                 GameObject currentArrow = Instantiate(arrowPrefab, SpawnPoint);
                 currentArrow.transform.localPosition = Vector3.zero;
                 currentArrow.GetComponent<Arrow>().Shoot(SpawnPoint);
-                currentArrow = null;
+                AudioManager.Instance.Play("Effects/arrow");
             }
         }
     }

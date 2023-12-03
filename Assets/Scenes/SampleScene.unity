@@ -3500,7 +3500,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8daeeafdaa53adc4e896886fa84ff259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Sounds>k__BackingField: []
+  <Sounds>k__BackingField:
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 8aea7fa8915c2244bbc3bd9792175671,
+      type: 3}
+    <Loop>k__BackingField: 0
+    <Name>k__BackingField: Effects/arrow
+    <Volume>k__BackingField: 0.5
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 0e34b8d080f0bf143b4733387d8e5d94,
+      type: 3}
+    <Loop>k__BackingField: 0
+    <Name>k__BackingField: Effects/arrow_wall
+    <Volume>k__BackingField: 0.25
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 0d1427a4f6b8ffb41ae90e22577be584,
+      type: 3}
+    <Loop>k__BackingField: 0
+    <Name>k__BackingField: Effects/damage
+    <Volume>k__BackingField: 0.05
 --- !u!1 &1016701675
 GameObject:
   m_ObjectHideFlags: 0

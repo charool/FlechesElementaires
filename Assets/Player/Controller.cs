@@ -149,6 +149,8 @@ public class Controller : Humanoid,IHitable
             print("I'm hit!");
 
             if (!IsDefending && (Vector3.Dot(transform.forward, direction) >= 0)) {
+                AudioManager.Instance.Play("Effects/damage");
+
                 IsAttacking = false;
                 health -= 1;
                 LifeBar.Instance.HealthValue = (byte)health;
