@@ -1972,6 +1972,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e6682e1e4c3b34f85f4955de0d06ef, type: 3}
+--- !u!1 &466085668 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8395179508934260424, guid: 8ca69a2292260a643b7246c93d55c3b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 503927094}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &469448120
 GameObject:
   m_ObjectHideFlags: 0
@@ -2158,12 +2164,6 @@ MonoBehaviour:
       turpis. Donec non tortor ac nulla tristique sollicitudin non id ante. Nulla
       vestibulum dui et mauris imperdiet, nec accumsan leo lobortis.
     <Name>k__BackingField: Statue
---- !u!1 &466085668 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8395179508934260424, guid: 8ca69a2292260a643b7246c93d55c3b4,
-    type: 3}
-  m_PrefabInstance: {fileID: 503927094}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &499734561 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8395179508934260424, guid: 7854b84191db78846b4f1b1abcf97b33,
@@ -3809,22 +3809,22 @@ MonoBehaviour:
       type: 3}
     <Loop>k__BackingField: 1
     <Name>k__BackingField: Levels/earth
-    <Volume>k__BackingField: 1
+    <Volume>k__BackingField: 0.25
   - <Clip>k__BackingField: {fileID: 8300000, guid: 9c2a3f4459067b742b3dcc4e823dd627,
       type: 3}
     <Loop>k__BackingField: 1
     <Name>k__BackingField: Levels/sky
-    <Volume>k__BackingField: 1
+    <Volume>k__BackingField: 0.25
   - <Clip>k__BackingField: {fileID: 8300000, guid: 4bb24907a68ab55489153ee9e6801f6c,
       type: 3}
     <Loop>k__BackingField: 1
     <Name>k__BackingField: Levels/lavadesert
-    <Volume>k__BackingField: 1
+    <Volume>k__BackingField: 0.25
   - <Clip>k__BackingField: {fileID: 8300000, guid: 1f950188d34f7f04a87a1c59f8a5ef97,
       type: 3}
     <Loop>k__BackingField: 1
     <Name>k__BackingField: Levels/icedesert
-    <Volume>k__BackingField: 1
+    <Volume>k__BackingField: 0.25
 --- !u!1 &1016701675
 GameObject:
   m_ObjectHideFlags: 0
