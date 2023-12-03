@@ -10,6 +10,8 @@ public class Tower : MonoBehaviour
     List<Enemy> toSpawn;
     [SerializeField]
     Transform spawnPoint;
+    [SerializeField]
+    Enemy[] elem;
 
     List<Enemy> enemys = new List<Enemy>();
     bool hasSpawn = false;
@@ -17,6 +19,15 @@ public class Tower : MonoBehaviour
     public void Spawn()
     {
         if(hasSpawn) { return; }
+        if (Random.value < probaElem)
+        {
+            Enemy g = Instantiate(elem[(int)Map.type]);
+            g.transform.position = spawnPoint.position;
+            enemys.Add(g);
+            g.SetTower(this);
+            Map.enemies.Add(g.gameObject);
+            return;
+        }
         foreach (Enemy obj in toSpawn)
         {
             if (Random.value < 0.5f) { continue; }
@@ -24,8 +35,10 @@ public class Tower : MonoBehaviour
             g.transform.position = spawnPoint.position;
             enemys.Add(g);
             g.SetTower(this);
+            Map.enemies.Add(g.gameObject);
         }
     }
+    [SerializeField] float probaElem;
 
     public void Remove(Enemy enemy)
     {

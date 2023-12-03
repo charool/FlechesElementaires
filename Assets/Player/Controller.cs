@@ -28,6 +28,13 @@ public class Controller : Humanoid,IHitable
     void Update()
     {
         if (!IsAlive){ return; }
+        if (transform.position.y < Map.instance.waterLevel)
+        {
+            if (Map.type == MapType.LavaDesert)
+            {
+                Hit(Vector3.up, ArrowType.None);
+            }
+        }
         rl = 0f;
         fb = 0f;
         bool isGrounded = IsGrounded;

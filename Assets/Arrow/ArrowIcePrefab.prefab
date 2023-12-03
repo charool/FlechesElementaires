@@ -52,6 +52,7 @@ MonoBehaviour:
   speed: 3
   maxTime: 6
   time: 0
+  type: 5
 --- !u!65 &7771597480301601330
 BoxCollider:
   m_ObjectHideFlags: 0

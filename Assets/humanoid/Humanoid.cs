@@ -31,7 +31,7 @@ public class Humanoid : MonoBehaviour
     private Vector3 directionMov;
     protected Vector3 directionStun;
     private float smooth;
-    protected int health = 1;
+    [SerializeField]protected int health = 1;
 
     protected float rl = 0f;
     protected float fb = 0f;
@@ -74,7 +74,10 @@ public class Humanoid : MonoBehaviour
         }
         else { direction = directionMov; }
 
-        if (transform.position.y < Map.instance.waterLevel) { direction /= 2f; }
+        if (transform.position.y < Map.instance.waterLevel) 
+        { 
+            direction /= 2f;
+        }
         if ((IsDefending)&& IsGrounded) { direction = Vector3.zero; }
         if (IsStun) { direction = directionStun * stunStrength; }
 

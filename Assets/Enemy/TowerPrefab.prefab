@@ -81,10 +81,16 @@ MonoBehaviour:
   type: 0
   toSpawn:
   - {fileID: 6021379270030550718, guid: 876f2294a15b8364a92d2c2f976a10e8, type: 3}
-  - {fileID: 6021379270030550718, guid: 876f2294a15b8364a92d2c2f976a10e8, type: 3}
-  - {fileID: 6021379270030550718, guid: 876f2294a15b8364a92d2c2f976a10e8, type: 3}
-  - {fileID: 6021379270030550718, guid: 876f2294a15b8364a92d2c2f976a10e8, type: 3}
+  - {fileID: 6021379270030550718, guid: 432c8ccd6bc309e41b822f1db5ee6c30, type: 3}
+  - {fileID: 6021379270030550718, guid: 432c8ccd6bc309e41b822f1db5ee6c30, type: 3}
+  - {fileID: 6021379270030550718, guid: 432c8ccd6bc309e41b822f1db5ee6c30, type: 3}
   spawnPoint: {fileID: 9027917407910904504}
+  elem:
+  - {fileID: 6021379270030550718, guid: 50f611970dd32aa4a8e47cc742269f58, type: 3}
+  - {fileID: 6021379270030550718, guid: 50f611970dd32aa4a8e47cc742269f58, type: 3}
+  - {fileID: 6021379270030550718, guid: 50f611970dd32aa4a8e47cc742269f58, type: 3}
+  - {fileID: 6021379270030550718, guid: 50f611970dd32aa4a8e47cc742269f58, type: 3}
+  probaElem: 1
 --- !u!65 &8825285919664175534
 BoxCollider:
   m_ObjectHideFlags: 0

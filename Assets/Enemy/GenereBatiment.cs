@@ -37,14 +37,16 @@ public class GenereBatiment : MonoBehaviour
                 else
                 {
                     Tower g = Instantiate(tower);
-                    print(g.transform.position);
                     g.transform.SetParent(transform);
-                    print(g.transform.position);
                     g.transform.position = mid + transform.position;
-                    print(g.transform.position);
-                    g.Spawn();
+                    StartCoroutine(Delay(g));
                 }
             }
         }
+    }
+    private IEnumerator Delay(Tower T)
+    {
+        yield return new WaitForSeconds(0.2f);
+        T.Spawn();
     }
 }

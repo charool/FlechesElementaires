@@ -15,6 +15,8 @@ public class Arrow : MonoBehaviour
     [SerializeField]
     float time=0f;
 
+    [SerializeField]
+    ArrowType type = ArrowType.Clasique;
     private void Update()
     {
         if (isShoot && !didHit)
@@ -47,7 +49,7 @@ public class Arrow : MonoBehaviour
         IHitable target = other.GetComponent<IHitable>();
         if (target != null && other.gameObject != gameObject)
         {
-            target.Hit(transform.forward, ArrowType.None);
+            target.Hit(transform.forward, type);
         }
         StartCoroutine(DestroyAftertime());
     }

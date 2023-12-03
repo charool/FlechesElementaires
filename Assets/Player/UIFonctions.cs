@@ -37,6 +37,11 @@ public class UIFonctions : MonoBehaviour
         spawn.SetActive(true);
         Map.type = MapType.Spawn;
         Player.instance.transform.position = spawnPoint.position;
+        List<GameObject> list = Map.enemies;
+        foreach (GameObject g in list)
+        {
+            Destroy(g);
+        }
         Map.instance.Destroy();
         EventSystem.current.SetSelectedGameObject(null);
     }

@@ -20,6 +20,7 @@ public class Map : MonoBehaviour
     public static Map instance;
 
     private GameObject[,] chunks;
+    public static List<GameObject> enemies = new List<GameObject>();
 
     [SerializeField]
     private int chunkRendererDistance;
