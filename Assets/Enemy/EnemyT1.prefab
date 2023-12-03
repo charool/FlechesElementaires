@@ -75,7 +75,7 @@ CharacterController:
   m_GameObject: {fileID: 6021379270030550719}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: 0.25
   m_Radius: 0.05
@@ -105,6 +105,7 @@ MonoBehaviour:
   speed: 1
   rotSmooth: 0.2
   g: 2
+  health: 1
   stunTime: 0.25
   stat: {fileID: 11400000, guid: 782fcff4f7dc5e34fb90fafa6e13ed15, type: 2}
   isTrigger: 0

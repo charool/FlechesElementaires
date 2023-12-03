@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class GenereBatiment : MonoBehaviour
 {
@@ -46,7 +45,7 @@ public class GenereBatiment : MonoBehaviour
     }
     private IEnumerator Delay(Tower T)
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
         T.Spawn();
     }
 }

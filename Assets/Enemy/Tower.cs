@@ -22,7 +22,9 @@ public class Tower : MonoBehaviour
         if (Random.value < probaElem)
         {
             Enemy g = Instantiate(elem[(int)Map.type - 1]);
+            print(g.transform.position);
             g.transform.position = spawnPoint.position;
+            print(g.transform.position);
             enemys.Add(g);
             g.SetTower(this);
             Map.enemies.Add(g.gameObject);

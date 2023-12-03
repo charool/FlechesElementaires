@@ -22,6 +22,8 @@ public class Enemy : Humanoid,IHitable
 
     //
 
+    private int init = 0;
+
     private void Start()
     {
         speed = stat.speed;
@@ -33,6 +35,11 @@ public class Enemy : Humanoid,IHitable
         gameObject.SetActive(true);
         lastPaternTime = Random.value * stat.changePaternTime;
     }
+    void ActiveController()
+    {
+
+        GetComponent<CharacterController>().enabled = true;
+    }
 
     private void Trigger()
     {
@@ -41,6 +48,7 @@ public class Enemy : Humanoid,IHitable
     }
     void Update()
     {
+        print(transform.position);
         if (!IsAlive)
         {
             fb = 0f;
@@ -102,6 +110,8 @@ public class Enemy : Humanoid,IHitable
         }
 
         UpdateHumanoid(angle);
+        if (init == 0) { init = 1; }
+        else if(init == 1) { ActiveController(); }
     }
     void LateUpdate()
     {
