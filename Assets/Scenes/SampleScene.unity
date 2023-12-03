@@ -7916,6 +7916,16 @@ PrefabInstance:
       propertyPath: SpawnPoint
       value: 
       objectReference: {fileID: 427225682}
+    - target: {fileID: 5020888489378467508, guid: ddbe75ebc55b3f541a1bbff1f77dae19,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9227046849a1f3d428998d84fa2bd401, type: 2}
+    - target: {fileID: 5020888489378467508, guid: ddbe75ebc55b3f541a1bbff1f77dae19,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a8e4886536634c40902f6749d50d96f, type: 2}
     - target: {fileID: 5305281958966309949, guid: ddbe75ebc55b3f541a1bbff1f77dae19,
         type: 3}
       propertyPath: m_Name

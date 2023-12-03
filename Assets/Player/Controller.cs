@@ -25,6 +25,14 @@ public class Controller : Humanoid,IHitable
         health = 3;
     }
 
+    public void StopAiming()
+    {
+        IsAiming = false;
+        IsReloading = false;
+        reloadTime = 0;
+        isFireing = false;
+    }
+
     void Update()
     {
         if (!IsAlive){ return; }

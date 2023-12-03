@@ -44,6 +44,7 @@ public class UIFonctions : MonoBehaviour
     public void Spawn()
     {
         AudioManager.Instance.PlayDefaultLoop();
+        Player.instance.GetComponent<Controller>().StopAiming();
 
         Player.instance.UnableDeplacement();
         spawn.SetActive(true);
