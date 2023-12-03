@@ -2077,8 +2077,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 3356759060
-  m_fontColor: {r: 0.078431375, g: 0.078431375, b: 0.078431375, a: 0.78431374}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2095,13 +2095,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -2158,11 +2158,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   messages:
-  - <Content>k__BackingField: Lorem ipsum dolor sit amet, consectetur adipiscing
-      elit. Morbi lacinia nisi eu quam ornare, non finibus nibh semper. Vestibulum
-      dapibus ante nec diam bibendum, nec cursus neque faucibus. In vitae feugiat
-      turpis. Donec non tortor ac nulla tristique sollicitudin non id ante. Nulla
-      vestibulum dui et mauris imperdiet, nec accumsan leo lobortis.
+  - <Content>k__BackingField: "On dit que Lui seul est capable de maintenir l'\xE9quilibre
+      entre les forces \xE9l\xE9mentaires. Mais, des \xEAtres malveillants et avides
+      de pouvoir sont venus r\xE9clamer ce qu'ils consid\xE9raient \xEAtre leur d\xFB.
+      Ils se cachent dor\xE9navant dans leur monde respectif derri\xE8re ces quatre
+      portails. Ils donneront leur vie s'il le faut mais jamais ils ne rendront ce
+      qu'ils ont pris. La Proph\xE9tie raconte qu'un jour viendra o\xF9 un jeune
+      archer intr\xE9pide viendra pour ramener l'\xE9quilibre entre les \xE9l\xE9ments."
     <Name>k__BackingField: Statue
 --- !u!1 &499734561 stripped
 GameObject:
